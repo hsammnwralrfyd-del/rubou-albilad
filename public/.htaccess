@@ -1,0 +1,116 @@
+# Cache Control & Performance Optimization
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # Images
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  
+  # CSS and JavaScript
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  
+  # Fonts
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  
+  # HTML
+  ExpiresByType text/html "access plus 0 seconds"
+  
+  # Default
+  ExpiresDefault "access plus 1 week"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Browser Caching
+<IfModule mod_headers.c>
+  # Cache static assets
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico|woff|woff2|ttf|eot)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+  
+  # Cache CSS and JS
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "max-age=2592000, public"
+  </FilesMatch>
+  
+  # Don't cache HTML
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=0, must-revalidate"
+  </FilesMatch>
+  
+  # Security Headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Disable directory browsing - مهم جداً لمنع عرض Index of
+Options -Indexes
+DirectoryIndex index.html
+
+# For LiteSpeed Web Server - Disable directory listing
+<IfModule mod_litespeed.c>
+  DirectoryIndex index.html
+</IfModule>
+
+# Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Force HTTPS (اختياري - يمكن إزالة هذا السطر إذا لم يكن لديك SSL)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  
+  # Remove trailing slash except for root
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} ^(.+)/$
+  RewriteRule ^ %1 [R=301,L]
+  
+  # Serve existing files directly (images, CSS, JS, fonts, etc.)
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+  
+  # Serve existing directories that contain index files
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ $1/index.html [L]
+  
+  # Exclude specific file types and asset directories from React Router rewriting
+  # Allow direct access to assets, images, and static files
+  # Check if request is for a file with specific extensions
+  RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff|woff2|ttf|eot|json|xml|txt|pdf)$ [NC]
+  RewriteRule ^ - [L]
+  
+  # Check if request is for an asset directory
+  RewriteCond %{REQUEST_URI} ^/(assets|icon1|canopies1|cladding1|DetailedServices1|doors1|fencing1|Gallery1|LaserShutters1|projects1|SandwichPanel1|services1|shutters1|WarehousesDetail1)/ [NC]
+  RewriteRule ^ - [L]
+  
+  
+  # Handle React Router - redirect all non-file, non-directory requests to index.html
+  # This ensures all routes work correctly when accessed directly via URL
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# MIME Types
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType application/javascript .js
+  AddType text/css .css
+</IfModule>

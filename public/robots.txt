@@ -1,0 +1,82 @@
+# robots.txt for muthallat.com
+# Optimized for fast indexing and better SEO
+
+User-agent: *
+Allow: /
+
+# Disallow image directories from being indexed (they show Index of pages)
+Disallow: /canopies1/
+Disallow: /cladding1/
+Disallow: /DetailedServices1/
+Disallow: /doors1/
+Disallow: /fencing1/
+Disallow: /Gallery1/
+Disallow: /LaserShutters1/
+Disallow: /projects1/
+Disallow: /SandwichPanel1/
+Disallow: /services1/
+Disallow: /shutters1/
+Disallow: /WarehousesDetail1/
+Disallow: /icon1/
+
+# But allow the actual image files to be crawled for better image SEO
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.ico$
+
+# Disallow admin or private areas if any
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /node_modules/
+
+# Optimize crawling for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /icon1/
+Allow: /*.webp$
+Allow: /*.jpg$
+Allow: /*.png$
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 0
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+# Social media bots
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Sitemap location - Critical for fast indexing
+Sitemap: https://muthallat.com/sitemap.xml
