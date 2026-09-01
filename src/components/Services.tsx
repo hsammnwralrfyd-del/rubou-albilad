@@ -1,6 +1,6 @@
 import { ArrowLeft, CheckCircle2, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
-import { servicesList } from "@/config/services";
+import { servicesList, getServiceGalleryPaths } from "@/config/services";
 import { client } from "@/config/client";
 
 export const Services = () => {
@@ -35,6 +35,7 @@ export const Services = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {servicesList.map((service, index) => {
             const Icon = service.icon;
+            const galleryImages = getServiceGalleryPaths(service);
 
             return (
               <Link
@@ -43,18 +44,21 @@ export const Services = () => {
                 className="group block"
               >
                 <article className="card-new h-full">
-                  {/* Image */}
-                  <div className="relative h-48 overflow-hidden sm:h-56">
-                    <img
-                      src={service.cardImage}
-                      alt={`${service.title} — ${client.shortName}`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                      decoding="async"
-                      width="800"
-                      height="600"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                  {/* Images Grid */}
+                  <div className="grid grid-cols-2 gap-1 p-1">
+                    {galleryImages.slice(0, 4).map((image, imgIndex) => (
+                      <div key={imgIndex} className="relative h-24 overflow-hidden sm:h-28">
+                        <img
+                          src={image}
+                          alt={`${service.title} — صورة ${imgIndex + 1}`}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                          decoding="async"
+                          width="400"
+                          height="300"
+                        />
+                      </div>
+                    ))}
                   </div>
 
                   {/* Content */}
