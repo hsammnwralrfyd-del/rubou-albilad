@@ -1,5 +1,5 @@
 import { contactLinks } from "@/config/client";
-import { Phone, MessageCircle } from "lucide-react";
+import { PhoneCall, MessageCircle } from "lucide-react";
 
 const FloatingButtons = () => {
   return (
@@ -23,7 +23,7 @@ const FloatingButtons = () => {
         className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white shadow-lg transition-transform hover:scale-105 sm:h-16 sm:w-16"
         aria-label="اتصل بنا الآن"
       >
-        <Phone size={24} className="shrink-0" />
+        <PhoneCall size={24} className="shrink-0" />
       </a>
     </div>
   );

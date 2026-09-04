@@ -1,4 +1,4 @@
-import { Phone, MapPin } from "lucide-react";
+import { PhoneCall, MapPin, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { client, contactLinks } from "@/config/client";
 
@@ -41,7 +41,7 @@ export const Footer = () => {
             <h4 className="mb-4 text-lg font-bold text-accent">تواصل معنا</h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
-                <Phone size={18} className="mt-1 shrink-0 text-accent" />
+                <PhoneCall size={18} className="mt-1 shrink-0 text-accent" />
                 <div>
                   <a
                     href={contactLinks.phone}
@@ -50,6 +50,20 @@ export const Footer = () => {
                     {client.phoneDisplay}
                   </a>
                   <p className="text-xs text-white/60">السبت - الخميس</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <MessageCircle size={18} className="mt-1 shrink-0 text-accent" />
+                <div>
+                  <a
+                    href={contactLinks.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-white/80 transition-colors hover:text-accent"
+                  >
+                    واتساب
+                  </a>
+                  <p className="text-xs text-white/60">رد سريع</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">

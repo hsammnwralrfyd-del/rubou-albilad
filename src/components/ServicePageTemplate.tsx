@@ -23,28 +23,64 @@ interface ServicePageTemplateProps {
   service: ServiceDefinition;
 }
 
-export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
-  const seoInfo = seoData[service.id];
+export const ServicePageTemplate = ({
+  service,
+}: ServicePageTemplateProps) => {
+  // حماية من الصفحة البيضاء إذا كان تعريف الخدمة غير موجود
+  if (!service) {
+    return (
+      <div
+        dir="rtl"
+        className="flex min-h-screen items-center justify-center bg-ivory px-4 text-center"
+      >
+        <div>
+          <h1 className="mb-3 text-2xl font-extrabold text-charcoal">
+            الصفحة غير متاحة
+          </h1>
+          <p className="mb-6 text-charcoal-soft">
+            عذراً، لم يتم العثور على بيانات هذا القسم.
+          </p>
+          <a href="/" className="btn-luxury inline-flex">
+            العودة للرئيسية
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  // الحصول على بيانات SEO بشكل آمن
+  const seoInfo = seoData?.[service.id];
+
   const heroImage = getServiceHeroPath(service);
   const galleryImages = getServiceGalleryPaths(service);
 
+  // إذا لم توجد بيانات SEO، لا نوقف الصفحة
   useSEO({
-    title: seoInfo.title,
-    description: seoInfo.description,
-    keywords: seoInfo.keywords,
-    url: seoInfo.url,
+    title: seoInfo?.title || service.title,
+    description:
+      seoInfo?.description ||
+      service.introDescription ||
+      `${service.title} في مكة المكرمة والمدينة المنورة`,
+    keywords: seoInfo?.keywords || [],
+    url: seoInfo?.url || client.siteUrl,
     image: `${client.siteUrl}${heroImage}`,
-    structuredData: generateStructuredData(
-      service.id,
-      seoInfo.title,
-      seoInfo.description
-    ),
+    structuredData: seoInfo
+      ? generateStructuredData(
+          service.id,
+          seoInfo.title,
+          seoInfo.description
+        )
+      : undefined,
   });
 
   return (
-    <div dir="rtl" className="min-h-screen overflow-x-hidden bg-ivory text-charcoal">
+    <div
+      dir="rtl"
+      className="min-h-screen overflow-x-hidden bg-ivory text-charcoal"
+    >
       <Header />
 
+      {/* Hero */}
       <section className="relative overflow-hidden bg-ivory pt-20 sm:pt-24">
         <div className="grid lg:grid-cols-2">
           <div className="relative h-56 sm:h-72 lg:h-auto lg:min-h-[420px]">
@@ -53,6 +89,9 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               alt={service.title}
               className="h-full w-full object-cover object-center"
               fetchPriority="high"
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
             />
           </div>
 
@@ -65,12 +104,15 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
 
               <h1 className="section-title mb-5 text-charcoal">
                 {service.title}
+
                 <span className="mt-2 block text-gradient-luxury">
                   {service.heroSubtitle}
                 </span>
               </h1>
 
-              <p className="section-desc mb-8">{service.introDescription}</p>
+              <p className="section-desc mb-8">
+                {service.introDescription}
+              </p>
 
               <div className="flex w-full flex-col gap-3 sm:flex-row">
                 <a
@@ -81,10 +123,20 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                 >
                   <MessageCircle size={20} className="shrink-0" />
                   تواصل عبر واتساب
-                  <Sparkles size={16} className="shrink-0 opacity-80" />
+                  <Sparkles
+                    size={16}
+                    className="shrink-0 opacity-80"
+                  />
                 </a>
-                <a href={contactLinks.phone} className="btn-modern w-full sm:w-auto">
-                  <Phone size={20} className="shrink-0 text-bronze" />
+
+                <a
+                  href={contactLinks.phone}
+                  className="btn-modern w-full sm:w-auto"
+                >
+                  <Phone
+                    size={20}
+                    className="shrink-0 text-bronze"
+                  />
                   اتصل الآن
                 </a>
               </div>
@@ -93,22 +145,33 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
+      {/* Introduction */}
       <section className="section-padding bg-white">
         <div className="section-container">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="section-title mb-5">{service.introTitle}</h2>
-            <p className="section-desc mx-auto">{service.introDescription}</p>
+            <h2 className="section-title mb-5">
+              {service.introTitle}
+            </h2>
+
+            <p className="section-desc mx-auto">
+              {service.introDescription}
+            </p>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {service.features.map((feature) => (
-              <div key={feature.title} className="group premium-card p-5 sm:p-6">
+              <div
+                key={feature.title}
+                className="group premium-card p-5 sm:p-6"
+              >
                 <div className="icon-new mb-4">
                   <Award size={22} className="shrink-0" />
                 </div>
+
                 <h3 className="mb-2 text-base font-extrabold text-charcoal sm:text-lg">
                   {feature.title}
                 </h3>
+
                 <p className="text-sm leading-7 text-charcoal-soft/70">
                   {feature.description}
                 </p>
@@ -118,28 +181,39 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
-      <ServiceGallery
-        images={galleryImages}
-        title={service.galleryTitle}
-        description={service.galleryDescription}
-        serviceName={service.shortTitle}
-      />
+      {/* Gallery */}
+      {galleryImages.length > 0 && (
+        <ServiceGallery
+          images={galleryImages}
+          title={service.galleryTitle}
+          description={service.galleryDescription}
+          serviceName={service.shortTitle}
+        />
+      )}
 
+      {/* Service Types */}
       <section className="section-padding bg-ivory">
         <div className="section-container">
           <div className="mb-10 text-center sm:mb-14">
             <h2 className="section-title">
               أنواع {service.shortTitle}
-              <span className="mt-2 block text-gradient-luxury">التي نقدمها</span>
+
+              <span className="mt-2 block text-gradient-luxury">
+                التي نقدمها
+              </span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
             {service.serviceTypes.map((item) => (
-              <div key={item.title} className="premium-card p-5">
+              <div
+                key={item.title}
+                className="premium-card p-5"
+              >
                 <h3 className="mb-2 text-base font-extrabold text-charcoal">
                   {item.title}
                 </h3>
+
                 <p className="text-sm leading-7 text-charcoal-soft/70">
                   {item.description}
                 </p>
@@ -149,6 +223,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
+      {/* Details */}
       <section className="section-padding bg-white">
         <div className="section-container">
           <div className="mb-10 text-center sm:mb-14">
@@ -159,7 +234,10 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
 
           <div className="space-y-10 sm:space-y-14">
             {service.contentSections.map((section, index) => {
-              const image = galleryImages[section.imageIndex] ?? galleryImages[0];
+              const image =
+                galleryImages[section.imageIndex] ||
+                galleryImages[0];
+
               const isReversed = index % 2 === 1;
 
               return (
@@ -169,21 +247,36 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
                     isReversed ? "lg:[direction:ltr]" : ""
                   }`}
                 >
-                  <div className={`min-w-0 ${isReversed ? "lg:[direction:rtl]" : ""}`}>
-                    <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-sm">
-                      <img
-                        src={image}
-                        alt={section.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="aspect-[4/3] w-full object-cover"
-                      />
-                    </div>
+                  <div
+                    className={`min-w-0 ${
+                      isReversed ? "lg:[direction:rtl]" : ""
+                    }`}
+                  >
+                    {image && (
+                      <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-sm">
+                        <img
+                          src={image}
+                          alt={section.title}
+                          loading="lazy"
+                          decoding="async"
+                          className="aspect-[4/3] w-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
-                  <div className={`min-w-0 ${isReversed ? "lg:[direction:rtl]" : ""}`}>
+
+                  <div
+                    className={`min-w-0 ${
+                      isReversed ? "lg:[direction:rtl]" : ""
+                    }`}
+                  >
                     <h3 className="mb-3 text-xl font-extrabold text-charcoal sm:text-2xl">
                       {section.title}
                     </h3>
+
                     <p className="text-sm leading-8 text-charcoal-soft/80 sm:text-base">
                       {section.description}
                     </p>
@@ -195,22 +288,32 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
+      {/* Benefits */}
       <section className="section-padding bg-ivory">
         <div className="section-container">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
             <div className="min-w-0">
               <h2 className="section-title mb-6">
                 {service.benefitsTitle}
+
                 <span className="mt-2 block text-gradient-luxury">
                   من {client.shortName}
                 </span>
               </h2>
+
               <div className="space-y-3">
                 {service.benefits.map((benefit) => (
-                  <div key={benefit} className="flex items-start gap-3">
+                  <div
+                    key={benefit}
+                    className="flex items-start gap-3"
+                  >
                     <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bronze/15">
-                      <CheckCircle2 size={14} className="text-bronze-dark" />
+                      <CheckCircle2
+                        size={14}
+                        className="text-bronze-dark"
+                      />
                     </div>
+
                     <span className="text-sm text-charcoal-soft/85 sm:text-base">
                       {benefit}
                     </span>
@@ -220,24 +323,29 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
             </div>
 
             <div className="relative min-w-0">
-              <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-md">
-                <img
-                  src={galleryImages[0]}
-                  alt={service.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="aspect-[4/3] w-full object-cover sm:h-[380px]"
-                />
-              </div>
+              {galleryImages[0] && (
+                <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-md">
+                  <img
+                    src={galleryImages[0]}
+                    alt={service.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="aspect-[4/3] w-full object-cover sm:h-[380px]"
+                  />
+                </div>
+              )}
+
               <div className="mt-4 rounded-2xl border border-bronze/15 bg-white p-4 shadow-sm sm:absolute sm:-bottom-6 sm:left-4 sm:mt-0 sm:max-w-[260px] lg:left-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-bronze text-white">
                     <Award size={22} />
                   </div>
+
                   <div className="min-w-0">
                     <div className="text-sm font-extrabold text-charcoal sm:text-base">
                       ضمان شامل
                     </div>
+
                     <div className="text-xs text-charcoal-soft/65 sm:text-sm">
                       على جميع الأعمال
                     </div>
@@ -249,13 +357,19 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
+      {/* Areas */}
       <section className="border-y border-bronze/15 bg-white py-12 sm:py-16">
         <div className="section-container text-center">
           <MapPin className="mx-auto mb-4 h-9 w-9 text-bronze" />
+
           <h2 className="mb-3 text-xl font-extrabold text-charcoal sm:text-2xl">
-            نغطي جميع مناطق المملكة
+            نغطي مكة المكرمة والمدينة المنورة والمناطق المحيطة
           </h2>
-          <p className="section-desc mx-auto mb-6">{service.areasText}</p>
+
+          <p className="section-desc mx-auto mb-6">
+            {service.areasText}
+          </p>
+
           <div className="flex flex-wrap justify-center gap-2">
             {client.serviceAreas.map((area) => (
               <span
@@ -269,6 +383,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="section-padding bg-charcoal">
         <div className="section-container text-center">
           <div className="section-badge mb-5 border-bronze/30 bg-charcoal-soft text-bronze-light">
@@ -276,10 +391,15 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
             <span>ابدأ مشروعك الآن</span>
           </div>
 
-          <h2 className="section-title mb-4 text-white">جاهزون لتنفيذ مشروعك؟</h2>
+          <h2 className="section-title mb-4 text-white">
+            جاهزون لتنفيذ مشروعك؟
+          </h2>
+
           <p className="section-desc mx-auto mb-8 text-ivory/70">
-            احصل على عرض سعر مجاني ومعاينة فورية من {client.companyName}
+            احصل على عرض سعر مجاني ومعاينة فورية من{" "}
+            {client.companyName}
           </p>
+
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <a
               href={contactLinks.whatsapp}
@@ -290,6 +410,7 @@ export const ServicePageTemplate = ({ service }: ServicePageTemplateProps) => {
               <MessageCircle size={20} className="shrink-0" />
               اطلب عرض سعر مجاني
             </a>
+
             <a
               href={contactLinks.phone}
               className="btn-modern w-full border-ivory/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto"

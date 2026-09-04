@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, ArrowDown, Shield, CheckCircle } from "lucide-react";
+import { PhoneCall, MessageCircle, ArrowDown, Shield, CheckCircle } from "lucide-react";
 import { client, contactLinks } from "@/config/client";
 
 export const Hero = () => {
@@ -66,7 +66,7 @@ export const Hero = () => {
                   تواصل عبر واتساب
                 </a>
                 <a href={contactLinks.phone} className="btn-primary w-full sm:w-auto">
-                  <Phone size={20} className="shrink-0" />
+                  <PhoneCall size={20} className="shrink-0" />
                   اتصل الآن
                 </a>
               </div>

@@ -1,4 +1,4 @@
-import { MapPin, Phone, Crown, Clock } from "lucide-react";
+import { MapPin, Phone, Crown, Clock, PhoneCall, MessageSquare } from "lucide-react";
 import { client, contactLinks } from "@/config/client";
 
 const WhatsAppIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
@@ -12,7 +12,7 @@ const contactCards = [
     title: "اتصل بنا",
     value: client.phoneDisplay,
     href: contactLinks.phone,
-    icon: Phone,
+    icon: PhoneCall,
     description: "خدمة عملاء سريعة على مدار أوقات العمل",
   },
   {

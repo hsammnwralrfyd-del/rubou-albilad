@@ -1,5 +1,5 @@
 import {
-  Phone,
+  PhoneCall,
   MessageCircle,
   Menu,
   X,
@@ -157,7 +157,7 @@ const Header = () => {
               href={contactLinks.phone}
               className="flex h-11 items-center gap-2 rounded-lg border-2 border-primary/20 bg-white px-4 text-sm font-bold text-primary transition-all hover:border-primary hover:bg-primary/5"
             >
-              <Phone size={18} className="shrink-0" />
+              <PhoneCall size={18} className="shrink-0" />
               <span className="hidden sm:inline">اتصال</span>
             </a>
             <a
@@ -219,7 +219,7 @@ const Header = () => {
               href={contactLinks.phone}
               className="flex h-14 items-center justify-center gap-3 rounded-lg border-2 border-primary/20 bg-white text-base font-bold text-primary transition-all hover:border-primary hover:bg-primary/5"
             >
-              <Phone size={20} />
+              <PhoneCall size={20} />
               اتصل بنا
             </a>
             <a
