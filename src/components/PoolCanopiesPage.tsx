@@ -1,6 +1,7 @@
 
 import { Phone, MessageCircle, MapPin, CheckCircle } from "lucide-react";
 import { useSEO } from "@/hooks/useSEO";
+import { assetPath } from "@/lib/assetPath";
 
 const images = [
   "/pool-canopies/1.webp",
@@ -29,7 +30,7 @@ const PoolCanopiesPage = () => {
       <section className="relative overflow-hidden bg-black">
         <div className="relative h-[65vh] min-h-[480px] max-h-[760px]">
           <img
-            src={images[0]}
+            src={assetPath(images[0])}
             alt="مظلات مسابح بالرياض - ربوع البلاد"
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -134,7 +135,7 @@ const PoolCanopiesPage = () => {
                 className="group overflow-hidden rounded-2xl bg-white shadow-xl"
               >
                 <img
-                  src={image}
+                  src={assetPath(image)}
                   alt={`مظلات مسابح بالرياض - صورة ${index + 1}`}
                   loading="lazy"
                   className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"

@@ -8,6 +8,7 @@ import {
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { contactLinks, client } from "@/config/client";
+import { assetPath } from "@/lib/assetPath";
 
 const navItems = [
   { label: "الرئيسية", hash: "#home" },
@@ -123,7 +124,7 @@ const Header = () => {
             aria-label="العودة إلى الصفحة الرئيسية"
           >
             <img
-              src="/logo.svg"
+              src={assetPath("/logo.svg")}
               alt={client.shortName}
               className="h-12 w-12 transition-all duration-300 group-hover:scale-105"
             />

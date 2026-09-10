@@ -2,6 +2,7 @@ import { useState } from "react";
 import { X, ZoomIn, Grid3x3, ArrowLeft, ArrowRight } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { servicesList } from "@/config/services";
+import { assetPath } from "@/lib/assetPath";
 
 export const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -10,7 +11,7 @@ export const Gallery = () => {
   // Create a combined gallery from all services
   const allImages = servicesList.flatMap((service) =>
     Array.from({ length: service.galleryImageCount }, (_, index) => ({
-      src: `/${service.folder}/${index + 1}.webp`,
+      src: assetPath(`/${service.folder}/${index + 1}.webp`),
       alt: `${service.title} - صورة ${index + 1}`,
       service: service.shortTitle,
     }))

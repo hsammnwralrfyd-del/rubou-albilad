@@ -578,7 +578,7 @@ const allServices: ServiceDefinition[] = [
     benefitsTitle: "مميزات سواتر الليزر",
     hasHeaderImage: false,
     galleryImageCount: 4,
-    cardImage: "/Gallery2/1.webp",
+    cardImage: "/Pergolas1/1.webp",
     icon: Shield,
     features: defaultFeatures,
     benefits: [
@@ -620,7 +620,7 @@ const allServices: ServiceDefinition[] = [
     benefitsTitle: "مميزات سواتر الشبوك",
     hasHeaderImage: false,
     galleryImageCount: 4,
-    cardImage: "/Gallery2/1.webp",
+    cardImage: "/Pergolas1/1.webp",
     icon: Shield,
     features: defaultFeatures,
     benefits: [
@@ -956,7 +956,7 @@ const allServices: ServiceDefinition[] = [
     benefitsTitle: "مميزات شبوك المباني",
     hasHeaderImage: false,
     galleryImageCount: 4,
-    cardImage: "/Gallery3/1.webp",
+    cardImage: "/WarehousesDetail1/1.webp",
     icon: Fence,
     features: defaultFeatures,
     benefits: [

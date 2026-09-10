@@ -2,6 +2,7 @@ import { ArrowLeft, CheckCircle2, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import { servicesList, getServiceGalleryPaths } from "@/config/services";
 import { client } from "@/config/client";
+import { assetPath } from "@/lib/assetPath";
 
 export const Services = () => {
   return (
@@ -49,7 +50,7 @@ export const Services = () => {
                     {galleryImages.slice(0, 4).map((image, imgIndex) => (
                       <div key={imgIndex} className="relative h-24 overflow-hidden sm:h-28">
                         <img
-                          src={image}
+                          src={assetPath(image)}
                           alt={`${service.title} — صورة ${imgIndex + 1}`}
                           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                           loading="lazy"

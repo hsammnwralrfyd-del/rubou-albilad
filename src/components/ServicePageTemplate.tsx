@@ -8,6 +8,7 @@ import {
   type ServiceDefinition,
 } from "@/config/services";
 import { useSEO } from "@/hooks/useSEO";
+import { assetPath } from "@/lib/assetPath";
 import { seoData, generateStructuredData } from "@/utils/seo/seoData";
 import {
   Phone,
@@ -85,7 +86,7 @@ export const ServicePageTemplate = ({
         <div className="grid lg:grid-cols-2">
           <div className="relative h-56 sm:h-72 lg:h-auto lg:min-h-[420px]">
             <img
-              src={heroImage}
+              src={assetPath(heroImage)}
               alt={service.title}
               className="h-full w-full object-cover object-center"
               fetchPriority="high"
@@ -255,7 +256,7 @@ export const ServicePageTemplate = ({
                     {image && (
                       <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-sm">
                         <img
-                          src={image}
+                          src={assetPath(image)}
                           alt={section.title}
                           loading="lazy"
                           decoding="async"
@@ -326,7 +327,7 @@ export const ServicePageTemplate = ({
               {galleryImages[0] && (
                 <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-md">
                   <img
-                    src={galleryImages[0]}
+                    src={assetPath(galleryImages[0])}
                     alt={service.title}
                     loading="lazy"
                     decoding="async"

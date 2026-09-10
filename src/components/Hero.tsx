@@ -1,5 +1,6 @@
 import { PhoneCall, MessageCircle, ArrowDown, Shield, CheckCircle } from "lucide-react";
 import { client, contactLinks } from "@/config/client";
+import { assetPath } from "@/lib/assetPath";
 
 export const Hero = () => {
   return (
@@ -11,7 +12,7 @@ export const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-bg.webp"
+          src={assetPath("/hero-bg.webp")}
           alt={`${client.shortName} — مظلات وسواتر في ${client.city}`}
           className="h-full w-full object-cover"
           fetchPriority="high"

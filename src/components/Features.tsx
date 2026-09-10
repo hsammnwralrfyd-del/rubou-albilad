@@ -1,50 +1,51 @@
 import featuresBg from "@/assets/features-bg-new.jpg";
+import { assetPath } from "@/lib/assetPath";
 
 const features = [
   {
-    image: "/features1/1.webp",
+    image: "/canopies/1.webp",
     title: "جودة في التنفيذ",
     description:
       "نحرص على تنفيذ الأعمال بجودة عالية واختيار الخامات المناسبة لكل مشروع.",
   },
   {
-    image: "/features1/2.webp",
+    image: "/fencing/1.webp",
     title: "تصاميم متنوعة",
     description:
       "حلول وتصاميم متعددة تناسب المنازل والفلل والاستراحات والمنشآت.",
   },
   {
-    image: "/features1/3.webp",
+    image: "/Pergolas1/1.webp",
     title: "تنفيذ حسب الموقع",
     description:
       "ننفذ كل مشروع وفق المساحة وطبيعة الموقع والاحتياج الفعلي للعميل.",
   },
   {
-    image: "/features1/4.webp",
+    image: "/shutters/1.webp",
     title: "خامات مناسبة",
     description:
       "نوفر خيارات متعددة من الخامات المناسبة للاستخدام الخارجي والمشاريع المختلفة.",
   },
   {
-    image: "/features1/5.webp",
+    image: "/WarehousesDetail1/1.webp",
     title: "خبرة في المشاريع",
     description:
       "حلول متكاملة للمنازل والمشاريع التجارية والمنشآت والمواقع المختلفة.",
   },
   {
-    image: "/features1/6.webp",
+    image: "/pool-canopies/1.webp",
     title: "خصوصية وحماية",
     description:
       "حلول عملية للمظلات والسواتر والشبوك تساعد على توفير الحماية والخصوصية.",
   },
   {
-    image: "/features1/7.webp",
+    image: "/sandwich-warehouses/1.webp",
     title: "حلول متكاملة",
     description:
       "من المظلات والسواتر إلى الهناجر والكلادينج والشبوك والتسوير.",
   },
   {
-    image: "/features1/8.webp",
+    image: "/Gallery1/1.webp",
     title: "خدمة في الرياض",
     description:
       "نقدم خدماتنا للعملاء في الرياض مع حلول مناسبة لمختلف أنواع المشاريع.",
@@ -124,7 +125,7 @@ export const Features = () => {
                 {/* الصورة */}
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img
-                    src={feature.image}
+                    src={assetPath(feature.image)}
                     alt={`${feature.title} - ربوع البلاد`}
                     loading="lazy"
                     decoding="async"

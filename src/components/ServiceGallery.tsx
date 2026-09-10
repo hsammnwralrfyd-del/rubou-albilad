@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, X, Maximize2, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { assetPath } from "@/lib/assetPath";
 
 interface ServiceGalleryProps {
   images: string[];
@@ -81,7 +82,7 @@ export const ServiceGallery = ({
               >
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src={image}
+                    src={assetPath(image)}
                     alt={`${serviceName} - صورة ${index + 1}`}
                     loading={index < 3 ? "eager" : "lazy"}
                     decoding="async"
@@ -143,7 +144,7 @@ export const ServiceGallery = ({
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src={images[lightboxIndex]}
+              src={assetPath(images[lightboxIndex])}
               alt={`${serviceName} - صورة ${lightboxIndex + 1}`}
               className="max-h-[80vh] w-full rounded-lg object-contain"
             />

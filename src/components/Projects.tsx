@@ -1,13 +1,14 @@
 import { ArrowLeft, Building2, MapPin, Calendar, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { client } from "@/config/client";
+import { assetPath } from "@/lib/assetPath";
 
 const galleryImages = [
   "/canopies/1.webp",
   "/shutters/1.webp",
-  "/pergolas/1.webp",
-  "/warehouses/1.webp",
-  "/sandwich-panel/1.webp",
+  "/Pergolas1/1.webp",
+  "/WarehousesDetail1/1.webp",
+  "/sandwich-warehouses/1.webp",
   "/fencing/1.webp",
 ];
 
@@ -38,7 +39,7 @@ export const Projects = () => {
             >
               <div className="h-52 overflow-hidden sm:h-56">
                 <img
-                  src={galleryImages[index % galleryImages.length]}
+                  src={assetPath(galleryImages[index % galleryImages.length])}
                   alt={`مشروع ${project.title}`}
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   loading="lazy"
