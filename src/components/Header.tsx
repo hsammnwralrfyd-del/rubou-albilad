@@ -122,9 +122,11 @@ const Header = () => {
             className="group relative flex shrink-0 items-center gap-3"
             aria-label="العودة إلى الصفحة الرئيسية"
           >
-            <div className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-primary-light via-primary to-primary-dark p-2 shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl">
-              <span className="text-2xl font-extrabold text-accent">ح</span>
-            </div>
+            <img
+              src="/logo.svg"
+              alt={client.shortName}
+              className="h-12 w-12 transition-all duration-300 group-hover:scale-105"
+            />
             <div className="hidden sm:block">
               <h1 className="text-lg font-extrabold leading-tight text-primary">
                 {client.shortName}

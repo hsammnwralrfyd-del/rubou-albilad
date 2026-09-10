@@ -6,8 +6,18 @@ export const Hero = () => {
     <section
       id="home"
       dir="rtl"
-      className="relative min-h-[calc(100dvh-72px)] overflow-hidden bg-gradient-to-br from-background via-white to-primary/5 pt-20 sm:pt-24"
+      className="relative min-h-[calc(100dvh-72px)] overflow-hidden pt-20 sm:pt-24"
     >
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/hero-bg.webp"
+          alt={`${client.shortName} — مظلات وسواتر في ${client.city}`}
+          className="h-full w-full object-cover"
+          fetchPriority="high"
+        />
+      </div>
+
       <div className="absolute inset-0 bg-pattern-dots opacity-40" aria-hidden="true" />
       <div
         className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full bg-accent/15 blur-3xl"
@@ -19,24 +29,24 @@ export const Hero = () => {
       />
 
       <div className="section-container relative z-10">
-        <div className="grid min-h-[calc(100dvh-8rem)] items-center gap-10 lg:grid-cols-2 lg:gap-14">
-          <div className="order-2 lg:order-1">
+        <div className="flex min-h-[calc(100dvh-8rem)] items-center justify-start">
+          <div className="max-w-2xl">
             <div className="space-y-7">
-              <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2">
-                <Shield size={16} className="text-accent-dark" />
-                <span className="text-sm font-bold text-accent-dark">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/20 px-4 py-2">
+                <Shield size={16} className="text-[#D9A441]" style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }} />
+                <span className="text-sm font-bold text-[#FFF4DC]" style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }}>
                   {client.tagline}
                 </span>
               </div>
 
               <div className="space-y-4">
-                <h1 className="text-4xl font-extrabold leading-tight text-primary sm:text-5xl lg:text-6xl">
+                <h1 className="text-4xl font-extrabold leading-tight text-[#FFF4DC] sm:text-5xl lg:text-6xl" style={{ textShadow: "3px 3px 6px rgba(62, 39, 35, 0.8)" }}>
                   {client.hero.title}
-                  <span className="mt-2 block text-gradient-luxury">
+                  <span className="mt-2 block text-[#D9A441]" style={{ textShadow: "3px 3px 6px rgba(62, 39, 35, 0.8)" }}>
                     {client.hero.subtitle}
                   </span>
                 </h1>
-                <p className="max-w-xl text-lg leading-relaxed text-secondary sm:text-xl">
+                <p className="max-w-xl text-lg leading-relaxed text-[#F8EBD0] sm:text-xl" style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }}>
                   {client.hero.paragraph1}
                 </p>
               </div>
@@ -46,10 +56,10 @@ export const Hero = () => {
                   (feature) => (
                     <div
                       key={feature}
-                      className="flex items-center gap-2 rounded-xl border border-primary/10 bg-white/80 px-3 py-2 text-sm font-semibold text-secondary shadow-sm"
+                      className="flex items-center gap-2 rounded-xl border border-white/40 bg-white/20 px-3 py-2 text-sm font-semibold text-[#FFF4DC] shadow-sm"
                     >
-                      <CheckCircle size={16} className="shrink-0 text-accent" />
-                      <span>{feature}</span>
+                      <CheckCircle size={16} className="shrink-0 text-[#D9A441]" style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }} />
+                      <span style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }}>{feature}</span>
                     </div>
                   )
                 )}
@@ -71,34 +81,14 @@ export const Hero = () => {
                 </a>
               </div>
 
-              <div className="border-t border-primary/10 pt-4">
-                <p className="text-sm font-semibold text-secondary-light">
+              <div className="border-t border-white/40 pt-4">
+                <p className="text-sm font-semibold text-[#E8D5B5]" style={{ textShadow: "2px 2px 4px rgba(62, 39, 35, 0.8)" }}>
                   نخدم: {client.serviceAreas.join(" · ")}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="order-1 lg:order-2">
-            <div className="relative">
-              <div className="absolute inset-0 rotate-2 rounded-3xl bg-gradient-to-br from-primary/15 to-accent/20" />
-              <div className="relative overflow-hidden rounded-3xl border border-primary/10 shadow-2xl">
-                <img
-                  src="/hero-bg.webp"
-                  alt={`${client.shortName} — مظلات وسواتر في ${client.city}`}
-                  className="h-[360px] w-full object-cover sm:h-[480px] lg:h-[560px]"
-                  fetchPriority="high"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/35 via-transparent to-transparent" />
-                <div className="absolute bottom-5 right-5 left-5 rounded-2xl border border-white/20 bg-white/90 p-4 backdrop-blur-md sm:right-auto sm:max-w-xs">
-                  <p className="text-sm font-extrabold text-primary">{client.shortName}</p>
-                  <p className="mt-1 text-xs font-semibold text-secondary">
-                    {client.phoneDisplay} · {client.city}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
