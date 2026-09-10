@@ -60,7 +60,7 @@ export const useSEO = ({
     updateMetaTag("og:url", url, true);
     updateMetaTag("og:type", type, true);
     updateMetaTag("og:locale", "ar_SA", true);
-    updateMetaTag("og:site_name", "حداد مظلات وسواتر", true);
+    updateMetaTag("og:site_name", "مظلات وسواتر مكة والمدينة مظلات سيارات", true);
 
     // Twitter
     updateMetaTag("twitter:card", "summary_large_image");

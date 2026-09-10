@@ -1,15 +1,15 @@
-/** بيانات حداد المظلات والسواتر — مكة والمدينة */
+/** بيانات مظلات وسواتر مكة والمدينة مظلات سيارات — مكة والمدينة */
 export const client = {
-  companyName: "حداد مظلات وسواتر",
-  shortName: "حداد مظلات وسواتر",
+  companyName: "مظلات وسواتر مكة والمدينة مظلات سيارات",
+  shortName: "مظلات وسواتر مكة والمدينة",
   ownerName: "م/حسام الرفيد",
   designerName: "م/حسام الرفيد",
   designerWhatsapp: "967779098659",
   tagline: "مظلات · سواتر · برجولات · هناجر",
   city: "مكة المكرمة",
-  phone: "553997827",
-  phoneIntl: "966553997827",
-  phoneDisplay: "055 399 7827",
+  phone: "548561357",
+  phoneIntl: "966548561357",
+  phoneDisplay: "054 856 1357",
   siteUrl: "https://canopies-makkah.com",
   instagram: "",
   mapsUrl: "https://maps.google.com/?q=مكة+المكرمة",
@@ -23,9 +23,9 @@ export const client = {
     longitude: "39.8262",
   },
   description:
-    "حداد مظلات وسواتر متخصص في تصميم وتنفيذ وتركيب المظلات والسواتر والبرجولات والهناجر والساندوتش بانل والشبوك في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار تنافسية.",
+    "مظلات وسواتر مكة والمدينة مظلات سيارات متخصص في تصميم وتنفيذ وتركيب المظلات والسواتر والبرجولات والهناجر والساندوتش بانل والشبوك في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار تنافسية.",
   hero: {
-    title: "حداد مظلات وسواتر",
+    title: "مظلات وسواتر مكة والمدينة مظلات سيارات",
     subtitle: "في مكة المكرمة والمدينة المنورة",
     paragraph1:
       "نصمّم وننفّذ ونركّب المظلات والسواتر والبرجولات والهناجر بأحدث المواصفات، مع ضمان الجودة والالتزام بالمواعيد في مكة المكرمة والمدينة المنورة.",
@@ -96,7 +96,7 @@ export const client = {
 
 export const contactLinks = {
   phone: `tel:+966${client.phone}`,
-  whatsapp: `https://wa.me/${client.phoneIntl}?text=${encodeURIComponent("مرحباً، أرغب في الاستفسار عن خدمات حداد المظلات والسواتر")}`,
+  whatsapp: `https://wa.me/${client.phoneIntl}?text=${encodeURIComponent("مرحباً، أرغب في الاستفسار عن خدمات مظلات وسواتر مكة والمدينة مظلات سيارات")}`,
   whatsappShort: `https://wa.me/${client.phoneIntl}`,
   designerWhatsapp: `https://wa.me/${client.designerWhatsapp}?text=${encodeURIComponent("مرحباً م/حسام الرفيد")}`,
   instagram: client.instagram,
