@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+﻿import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -148,7 +148,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter basename="/rubou-albilad">
+      <BrowserRouter>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
 
@@ -298,3 +298,4 @@ const App = () => (
 );
 
 export default App;
+
