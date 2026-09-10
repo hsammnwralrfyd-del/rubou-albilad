@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 import { copyFileSync } from "fs";
 
 export default defineConfig(({ mode }) => ({
-  base: "/",
+  base: "/rubou-albilad/",
 
   server: {
     host: "::",
