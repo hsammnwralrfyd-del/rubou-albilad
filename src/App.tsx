@@ -148,7 +148,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter>
+      <BrowserRouter basename="/rubou-albilad">
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
 
