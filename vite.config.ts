@@ -1,11 +1,11 @@
-﻿import { defineConfig } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { copyFileSync } from "fs";
 
 export default defineConfig(({ mode }) => ({
-  base: "/",
+  base: "/rubou-albilad/",
 
   server: {
     host: "::",

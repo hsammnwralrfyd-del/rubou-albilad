@@ -1,4 +1,4 @@
-๏ปฟimport { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,13 +14,13 @@ import {
 import FloatingButtons from "./components/FloatingButtons";
 
 // ===============================
-// ุงูุตูุญุฉ ุงูุฑุฆูุณูุฉ
+// วแีÝอษ วแัฦํำํษ
 // ===============================
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ===============================
-// ุงูู…ุธูุงุช
+// วแใูแวส
 // ===============================
 const CanopiesPage = lazy(
   () => import("./pages/CanopiesPage")
@@ -42,7 +42,7 @@ const PyramidalCarCanopiesPage = lazy(
 );
 
 // ===============================
-// ุงูุณูุงุชุฑ
+// วแำๆวสั
 // ===============================
 const ShuttersPage = lazy(
   () => import("./pages/ShuttersPage")
@@ -55,7 +55,7 @@ const FencingShuttersPage = lazy(
 );
 
 // ===============================
-// ุงูุจุฑุฌููุงุช ูุงูุชูุจูุณุงุช ุงูุฎุดุจูุฉ
+// วแศัฬๆแวส ๆวแสแศํำวส วแฮิศํษ
 // ===============================
 const PergolasPage = lazy(
   () => import("./pages/PergolasPage")
@@ -65,7 +65,7 @@ const WoodCladdingPage = lazy(
 );
 
 // ===============================
-// ุงูุชูุณูุงุช
+// วแส฿ำํวส
 // ===============================
 const CladdingPage = lazy(
   () => import("./pages/CladdingPage")
@@ -78,7 +78,7 @@ const DoorsPage = lazy(
 );
 
 // ===============================
-// ุงูููุงุฌุฑ
+// วแๅไวฬั
 // ===============================
 const WarehousesPage = lazy(
   () => import("./pages/WarehousesPage")
@@ -97,7 +97,7 @@ const FabricHousesPage = lazy(
 );
 
 // ===============================
-// ุงูุดุจูู
+// วแิศๆ฿
 // ===============================
 const FencingPage = lazy(
   () => import("./pages/FencingPage")
@@ -107,7 +107,7 @@ const BuildingFencingPage = lazy(
 );
 
 // ===============================
-// ุงููุฑุงู…ูุฏ
+// วแÞัวใํฯ
 // ===============================
 const RoofingTilesPage = lazy(
   () => import("./pages/RoofingTilesPage")
@@ -120,7 +120,7 @@ const RoofingTilesPage = lazy(
 const queryClient = new QueryClient();
 
 // ===============================
-// ุดุงุดุฉ ุงูุชุญู…ูู
+// ิวิษ วแสอใํแ
 // ===============================
 
 const LoadingFallback = () => (
@@ -132,14 +132,14 @@ const LoadingFallback = () => (
       <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent" />
 
       <p className="text-lg text-secondary">
-        ุฌุงุฑู ุงูุชุญู…ูู...
+        ฬวัํ วแสอใํแ...
       </p>
     </div>
   </div>
 );
 
 // ===============================
-// ุงูุชุทุจูู
+// วแสุศํÞ
 // ===============================
 
 const App = () => (
@@ -148,12 +148,12 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter>
+      <BrowserRouter basename="/rubou-albilad/">
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
 
             {/* =========================
-                ุงูุตูุญุฉ ุงูุฑุฆูุณูุฉ
+                วแีÝอษ วแัฦํำํษ
             ========================= */}
 
             <Route
@@ -162,7 +162,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูู…ุธูุงุช
+                วแใูแวส
             ========================= */}
             <Route
               path="/canopies"
@@ -190,7 +190,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูุณูุงุชุฑ
+                วแำๆวสั
             ========================= */}
             <Route
               path="/shutters"
@@ -206,7 +206,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูุจุฑุฌููุงุช ูุงูุชูุจูุณุงุช ุงูุฎุดุจูุฉ
+                วแศัฬๆแวส ๆวแสแศํำวส วแฮิศํษ
             ========================= */}
             <Route
               path="/pergolas"
@@ -218,7 +218,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูุชูุณูุงุช
+                วแส฿ำํวส
             ========================= */}
             <Route
               path="/cladding"
@@ -234,7 +234,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูููุงุฌุฑ
+                วแๅไวฬั
             ========================= */}
             <Route
               path="/warehouses"
@@ -258,7 +258,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงูุดุจูู
+                วแิศๆ฿
             ========================= */}
             <Route
               path="/fencing"
@@ -270,7 +270,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุงููุฑุงู…ูุฏ
+                วแÞัวใํฯ
             ========================= */}
             <Route
               path="/roofing-tiles"
@@ -278,7 +278,7 @@ const App = () => (
             />
 
             {/* =========================
-                ุฃู ุฑุงุจุท ุบูุฑ ู…ูุฌูุฏ
+                รํ ัวศุ Ûํั ใๆฬๆฯ
             ========================= */}
 
             <Route
@@ -289,7 +289,7 @@ const App = () => (
           </Routes>
         </Suspense>
 
-        {/* ุฃุฒุฑุงุฑ ุงูุงุชุตุงู ุงูุนุงุฆู…ุฉ */}
+        {/* ราัวั วแวสีวแ วแฺวฦใษ */}
         <FloatingButtons />
 
       </BrowserRouter>
