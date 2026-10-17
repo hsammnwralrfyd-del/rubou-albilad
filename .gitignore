@@ -1,0 +1,4 @@
+﻿node_modules/
+dist/
+backup-arabic-*/
+backup-before-restore-*/

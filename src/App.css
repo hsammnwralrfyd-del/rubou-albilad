@@ -1,0 +1,414 @@
+
+/* ================================
+   الأساسيات
+================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: "Amiri", serif;
+  background: #0a0f1a;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* تحسين تحديد النص */
+::selection {
+  background: #d1a347;
+  color: #ffffff;
+}
+
+/* ================================
+   الحركات العامة
+================================ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(45px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-gold {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ================================
+   Classes الأنيميشن
+================================ */
+
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.8s ease-out both;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out both;
+}
+
+.animate-slide-right {
+  animation: slide-right 0.8s ease-out both;
+}
+
+.animate-slide-left {
+  animation: slide-left 0.8s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.7s ease-out both;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ================================
+   تأخير الأنيميشن
+================================ */
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+.animation-delay-600 {
+  animation-delay: 600ms;
+}
+
+.animation-delay-700 {
+  animation-delay: 700ms;
+}
+
+/* ================================
+   العناصر الزجاجية
+================================ */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+/* ================================
+   التدرج الذهبي
+================================ */
+
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    #f3d27a 0%,
+    #d1a347 45%,
+    #b88a2d 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ================================
+   بطاقات الخدمات
+================================ */
+
+.card-new {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.025)
+  );
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.card-new:hover {
+  transform: translateY(-8px);
+  border-color: rgba(209, 163, 71, 0.5);
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(209, 163, 71, 0.08);
+}
+
+/* ================================
+   أيقونات الخدمات
+================================ */
+
+.icon-new {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  color: #d1a347;
+
+  background: rgba(209, 163, 71, 0.12);
+  border: 1px solid rgba(209, 163, 71, 0.25);
+
+  backdrop-filter: blur(8px);
+
+  transition:
+    transform 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.group:hover .icon-new {
+  transform: rotate(-5deg) scale(1.1);
+
+  background: rgba(209, 163, 71, 0.2);
+
+  box-shadow: 0 8px 25px rgba(209, 163, 71, 0.15);
+}
+
+/* ================================
+   الحاويات
+================================ */
+
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.section-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ================================
+   تحسين الصور
+================================ */
+
+img {
+  max-width: 100%;
+}
+
+img {
+  transition:
+    transform 0.6s ease,
+    opacity 0.4s ease;
+}
+
+/* ================================
+   الأزرار
+================================ */
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+/* ================================
+   شريط التمرير
+================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0f1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1a347;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e0b85c;
+}
+
+/* ================================
+   تقليل الحركة لمن يفضل ذلك
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ================================
+   الجوال
+================================ */
+
+@media (max-width: 640px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .section-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .card-new:hover {
+    transform: translateY(-4px);
+  }
+}
