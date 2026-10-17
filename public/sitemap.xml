@@ -1,71 +1,16 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <!-- Homepage - Highest Priority -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://muthallat.com/</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <!-- Main Services - High Priority -->
-  <url>
-    <loc>https://muthallat.com/warehouses-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/</loc>
   </url>
   <url>
-    <loc>https://muthallat.com/canopies-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/canopies</loc>
   </url>
   <url>
-    <loc>https://muthallat.com/shutters-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/car-canopies</loc>
   </url>
   <url>
-    <loc>https://muthallat.com/sandwich-panel-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://muthallat.com/fencing-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <!-- Additional Services -->
-  <url>
-    <loc>https://muthallat.com/cladding-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://muthallat.com/doors-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://muthallat.com/LaserShutters-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://muthallat.com/woodcladding-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/garden-canopies</loc>
   </url>
 </urlset>
-
-
