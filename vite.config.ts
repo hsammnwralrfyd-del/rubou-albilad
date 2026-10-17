@@ -2,12 +2,35 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
-import { copyFileSync, mkdirSync, existsSync } from "fs";
+import {
+  copyFileSync,
+  mkdirSync,
+  existsSync,
+} from "fs";
 
 const routes = [
   "canopies",
   "car-canopies",
   "garden-canopies",
+  "school-canopies",
+  "french-arch-canopies",
+  "pyramidal-car-canopies",
+  "shutters",
+  "laser-shutters",
+  "fencing-shutters",
+  "pergolas",
+  "wood-cladding",
+  "cladding",
+  "cladding-facades",
+  "doors",
+  "warehouses",
+  "warehouses-detail",
+  "sandwich-panel",
+  "sandwich-warehouses",
+  "fabric-houses",
+  "fencing",
+  "building-fencing",
+  "roofing-tiles",
 ];
 
 export default defineConfig(({ mode }) => ({
@@ -24,6 +47,7 @@ export default defineConfig(({ mode }) => ({
 
     {
       name: "prepare-github-pages-routes",
+
       closeBundle() {
         if (mode !== "production") return;
 
@@ -34,13 +58,19 @@ export default defineConfig(({ mode }) => ({
           return;
         }
 
+        // إنشاء صفحة HTML مستقلة لكل مسار خدمة
         for (const route of routes) {
           const routeDir = path.resolve("dist", route);
 
           mkdirSync(routeDir, { recursive: true });
-          copyFileSync(indexFile, path.join(routeDir, "index.html"));
+
+          copyFileSync(
+            indexFile,
+            path.join(routeDir, "index.html")
+          );
         }
 
+        // نسخ ملفات إعدادات الخوادم إن كانت موجودة
         for (const file of [".htaccess", "web.config"]) {
           const source = path.resolve("public", file);
           const destination = path.resolve("dist", file);
@@ -50,7 +80,9 @@ export default defineConfig(({ mode }) => ({
           }
         }
 
-        console.log("GitHub Pages route pages generated.");
+        console.log(
+          `Generated ${routes.length} GitHub Pages route pages.`
+        );
       },
     },
   ].filter(Boolean),
@@ -63,18 +95,27 @@ export default defineConfig(({ mode }) => ({
 
   build: {
     cssCodeSplit: true,
+
     minify: mode === "production" ? "esbuild" : false,
 
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "react-vendor": [
+            "react",
+            "react-dom",
+            "react-router-dom",
+          ],
+
           "ui-vendor": [
             "@radix-ui/react-dialog",
             "@radix-ui/react-dropdown-menu",
             "@radix-ui/react-accordion",
           ],
-          "query-vendor": ["@tanstack/react-query"],
+
+          "query-vendor": [
+            "@tanstack/react-query",
+          ],
         },
       },
     },
