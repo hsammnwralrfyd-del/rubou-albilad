@@ -1,33 +1,42 @@
-import { KeywordResearch } from "@/types/seo.types";
+export interface KeywordResearchItem {
+  primary: string;
+  secondary: string[];
+  longTail: string[];
+}
 
-export const generateLocalBusinessSchema = (_pageData: unknown, keywords: KeywordResearch) => {
+export const generateLocalBusinessSchema = (_pageData: unknown, keywords: KeywordResearchItem) => {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: `برجولات في مكة المكرمة مكة المكرمة | ${keywords.primary}`,
-    image: "https://muthallat.com/WoodCladding1/1.webp",
-    description: `متخصصون في تصميم وتركيب ${keywords.primary} - ${keywords.secondary.join(" | ")}`,
-    url: "https://muthallat.com/woodcladding-detail",
-    telephone: "+966502566093",
+    name: `مظلات وسواتر مكة والمدينة | ${keywords.primary}`,
+    image: "https://hsammnwralrfyd-del.github.io/rubou-albilad/hero-bg.webp",
+    description: `متخصصون في تصميم وتركيب ${keywords.primary} - ${keywords.secondary.join(" | ")} في مكة المكرمة والمدينة المنورة.`,
+    url: "https://hsammnwralrfyd-del.github.io/rubou-albilad/",
+    telephone: "+966548561357",
     address: {
       "@type": "PostalAddress",
       streetAddress: "مكة المكرمة",
       addressLocality: "مكة المكرمة",
       addressRegion: "منطقة مكة المكرمة",
-      postalCode: "32241",
       addressCountry: "SA",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "26.4207",
-      longitude: "50.0888",
+      latitude: "21.4225",
+      longitude: "39.8262",
     },
-    openingHours: ["Mo-Sa 08:00-20:00", "Su 09:00-14:00"],
+    openingHours: ["Sa-Th 08:00-21:00"],
     priceRange: "$$",
-    areaServed: {
-      "@type": "City",
-      name: "مكة المكرمة",
-    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "مكة المكرمة",
+      },
+      {
+        "@type": "City",
+        name: "المدينة المنورة",
+      },
+    ],
     keywords: keywords.longTail.slice(0, 5).join(", "),
   };
 };

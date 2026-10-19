@@ -1,146 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <!-- Homepage - Highest Priority -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Main Services - High Priority -->
+
+  <!-- Canopies -->
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/canopies</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/car-canopies</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/garden-canopies</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/school-canopies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/french-arch-canopies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/pyramidal-car-canopies</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Shutters -->
+  <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/shutters</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/laser-shutters</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/fencing</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/fencing-shutters</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- Pergolas and Wood Cladding -->
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/pergolas</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/wood-cladding</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Cladding and Facades -->
+  <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/cladding</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/cladding</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/cladding-facades</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/doors</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
+
+  <!-- Warehouses -->
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/warehouses</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/warehouses-detail</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/sandwich-panel</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <!-- Additional Services -->
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/school-canopies</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/french-arch-canopies</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/pyramidal-car-canopies</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/fencing-shutters</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/cladding-facades</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/building-fencing</loc>
-    <lastmod>2025-01-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/sandwich-warehouses</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/fabric-houses</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Fencing -->
+  <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/fencing</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/building-fencing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Roofing -->
+  <url>
     <loc>https://hsammnwralrfyd-del.github.io/rubou-albilad/roofing-tiles</loc>
-    <lastmod>2025-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

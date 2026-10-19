@@ -83,7 +83,7 @@ export const ServiceGallery = ({
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={assetPath(image)}
-                    alt={`${serviceName} - صورة ${index + 1}`}
+                    alt={`تنفيذ ${serviceName} في مكة المكرمة والمدينة المنورة - نموذج ${index + 1}`}
                     loading={index < 3 ? "eager" : "lazy"}
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
@@ -145,7 +145,7 @@ export const ServiceGallery = ({
           >
             <img
               src={assetPath(images[lightboxIndex])}
-              alt={`${serviceName} - صورة ${lightboxIndex + 1}`}
+              alt={`تنفيذ ${serviceName} في مكة المكرمة والمدينة المنورة - نموذج ${lightboxIndex + 1}`}
               className="max-h-[80vh] w-full rounded-lg object-contain"
             />
             <p className="mt-3 text-center text-sm font-bold text-white/80">

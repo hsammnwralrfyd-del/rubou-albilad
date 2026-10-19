@@ -5,11 +5,21 @@ import { contactLinks, client } from "@/config/client";
 import {
   getServiceGalleryPaths,
   getServiceHeroPath,
+  allServices,
   type ServiceDefinition,
+  type ServiceSeoKey,
 } from "@/config/services";
 import { useSEO } from "@/hooks/useSEO";
 import { assetPath } from "@/lib/assetPath";
 import { seoData, generateStructuredData } from "@/utils/seo/seoData";
+import { getServiceFAQs } from "@/utils/seo/serviceFaqs";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Link } from "react-router-dom";
 import {
   Phone,
   MessageCircle,
@@ -18,11 +28,60 @@ import {
   CheckCircle2,
   Award,
   MapPin,
+  ArrowLeft,
+  HelpCircle,
 } from "lucide-react";
 
 interface ServicePageTemplateProps {
   service: ServiceDefinition;
 }
+
+const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
+  const canopyGroup: ServiceSeoKey[] = [
+    "canopies",
+    "carCanopies",
+    "gardenCanopies",
+    "schoolCanopies",
+    "frenchArchCanopies",
+    "pyramidalCarCanopies",
+  ];
+  const shutterGroup: ServiceSeoKey[] = [
+    "shutters",
+    "laserShutters",
+    "fencingShutters",
+  ];
+  const pergolaWoodGroup: ServiceSeoKey[] = [
+    "pergolas",
+    "woodCladding",
+    "cladding",
+    "claddingFacades",
+    "doors",
+  ];
+  const warehouseSandwichGroup: ServiceSeoKey[] = [
+    "warehouses",
+    "warehousesDetail",
+    "sandwichPanel",
+    "sandwichWarehouses",
+    "fabricHouses",
+  ];
+  const fencingGroup: ServiceSeoKey[] = [
+    "fencing",
+    "buildingFencing",
+    "fencingShutters",
+  ];
+
+  let targetGroup: ServiceSeoKey[] = [];
+  if (canopyGroup.includes(currentId)) targetGroup = canopyGroup;
+  else if (shutterGroup.includes(currentId)) targetGroup = shutterGroup;
+  else if (pergolaWoodGroup.includes(currentId)) targetGroup = pergolaWoodGroup;
+  else if (warehouseSandwichGroup.includes(currentId)) targetGroup = warehouseSandwichGroup;
+  else if (fencingGroup.includes(currentId)) targetGroup = fencingGroup;
+  else targetGroup = ["canopies", "shutters", "pergolas", "warehouses"];
+
+  return allServices
+    .filter((s) => targetGroup.includes(s.id) && s.id !== currentId)
+    .slice(0, 3);
+};
 
 export const ServicePageTemplate = ({
   service,
@@ -54,6 +113,9 @@ export const ServicePageTemplate = ({
 
   const heroImage = getServiceHeroPath(service);
   const galleryImages = getServiceGalleryPaths(service);
+  const relatedServices = getRelatedServices(service.id);
+  const activeAreas = ["مكة المكرمة", "المدينة المنورة"];
+  const faqs = getServiceFAQs(service.id, service.shortTitle);
 
   // إذا لم توجد بيانات SEO، لا نوقف الصفحة
   useSEO({
@@ -62,14 +124,15 @@ export const ServicePageTemplate = ({
       seoInfo?.description ||
       service.introDescription ||
       `${service.title} في مكة المكرمة والمدينة المنورة`,
-    keywords: seoInfo?.keywords || [],
+    keywords: seoInfo?.keywords || undefined,
     url: seoInfo?.url || client.siteUrl,
     image: `${client.siteUrl}${heroImage}`,
     structuredData: seoInfo
       ? generateStructuredData(
           service.id,
           seoInfo.title,
-          seoInfo.description
+          seoInfo.description,
+          faqs
         )
       : undefined,
   });
@@ -87,7 +150,7 @@ export const ServicePageTemplate = ({
           <div className="relative h-56 sm:h-72 lg:h-auto lg:min-h-[420px]">
             <img
               src={assetPath(heroImage)}
-              alt={service.title}
+              alt={`${service.title} - ${service.heroSubtitle}`}
               className="h-full w-full object-cover object-center"
               fetchPriority="high"
               onError={(e) => {
@@ -257,7 +320,7 @@ export const ServicePageTemplate = ({
                       <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-sm">
                         <img
                           src={assetPath(image)}
-                          alt={section.title}
+                          alt={`${section.title} - ${service.shortTitle} مكة المكرمة والمدينة المنورة`}
                           loading="lazy"
                           decoding="async"
                           className="aspect-[4/3] w-full object-cover"
@@ -344,11 +407,11 @@ export const ServicePageTemplate = ({
 
                   <div className="min-w-0">
                     <div className="text-sm font-extrabold text-charcoal sm:text-base">
-                      ضمان شامل
+                      جودة في التنفيذ
                     </div>
 
                     <div className="text-xs text-charcoal-soft/65 sm:text-sm">
-                      على جميع الأعمال
+                      في جميع الأعمال
                     </div>
                   </div>
                 </div>
@@ -364,7 +427,7 @@ export const ServicePageTemplate = ({
           <MapPin className="mx-auto mb-4 h-9 w-9 text-bronze" />
 
           <h2 className="mb-3 text-xl font-extrabold text-charcoal sm:text-2xl">
-            نغطي مكة المكرمة والمدينة المنورة والمناطق المحيطة
+            نغطي مكة المكرمة والمدينة المنورة
           </h2>
 
           <p className="section-desc mx-auto mb-6">
@@ -372,7 +435,7 @@ export const ServicePageTemplate = ({
           </p>
 
           <div className="flex flex-wrap justify-center gap-2">
-            {client.serviceAreas.map((area) => (
+            {activeAreas.map((area) => (
               <span
                 key={area}
                 className="rounded-full border border-bronze/20 bg-ivory px-3 py-1.5 text-xs font-semibold text-bronze-dark sm:text-sm"
@@ -383,6 +446,86 @@ export const ServicePageTemplate = ({
           </div>
         </div>
       </section>
+
+      {/* Service FAQs */}
+      {faqs && faqs.length > 0 && (
+        <section className="section-padding bg-white border-t border-bronze/15">
+          <div className="section-container">
+            <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
+              <div className="section-badge mb-4">
+                <HelpCircle size={14} className="shrink-0 text-bronze" />
+                <span>الأسئلة الشائعة</span>
+              </div>
+              <h2 className="section-title text-charcoal">
+                أسئلة شائعة عن {service.shortTitle}
+              </h2>
+              <p className="section-desc mx-auto mt-2 text-charcoal-soft/70">
+                إجابات تفصيلية وموثوقة حول مواصفات وتركيب {service.shortTitle} في مكة المكرمة والمدينة المنورة
+              </p>
+            </div>
+
+            <div className="mx-auto max-w-3xl">
+              <Accordion type="single" collapsible className="space-y-3">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={faq.question}
+                    value={`service-faq-${index}`}
+                    className="overflow-hidden rounded-xl border border-bronze/20 bg-ivory px-4 shadow-sm data-[state=open]:border-bronze sm:px-5"
+                  >
+                    <AccordionTrigger className="py-4 text-right text-sm font-bold text-charcoal hover:no-underline sm:text-base [&>svg]:shrink-0 [&>svg]:text-bronze">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4 text-sm leading-8 text-charcoal-soft/80 sm:text-base">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related Services */}
+      {relatedServices.length > 0 && (
+        <section className="section-padding bg-ivory border-t border-bronze/15">
+          <div className="section-container">
+            <div className="mb-8 text-center sm:mb-10">
+              <div className="section-badge mb-4">
+                <Sparkles size={14} className="shrink-0 text-bronze" />
+                <span>خدمات مترابطة</span>
+              </div>
+              <h2 className="section-title text-charcoal">
+                خدمات ذات صلة في مكة والمدينة
+              </h2>
+              <p className="section-desc mx-auto mt-2 text-charcoal-soft/70">
+                استكشف حلولاً متكاملة لتنفيذ المظلات والسواتر والإنشاءات بأعلى معايير الجودة
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-6">
+              {relatedServices.map((rel) => (
+                <Link
+                  key={rel.id}
+                  to={rel.route}
+                  className="group premium-card block p-6 transition-all duration-300 hover:-translate-y-1 hover:border-bronze/40"
+                >
+                  <h3 className="mb-2 text-lg font-bold text-charcoal group-hover:text-bronze transition-colors">
+                    {rel.title}
+                  </h3>
+                  <p className="mb-4 text-sm leading-relaxed text-charcoal-soft/70 line-clamp-2">
+                    {rel.heroSubtitle}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-bronze">
+                    <span>عرض تفاصيل الخدمة</span>
+                    <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="section-padding bg-charcoal">
