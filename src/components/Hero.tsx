@@ -53,7 +53,7 @@ export const Hero = () => {
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {["جودة عالية", "أسعار تنافسية", "تنفيذ سريع", "ضمان شامل"].map(
+                {["جودة عالية", "أسعار تنافسية", "تنفيذ سريع", "اهتمام بالجودة"].map(
                   (feature) => (
                     <div
                       key={feature}

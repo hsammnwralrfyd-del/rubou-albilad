@@ -1,5 +1,4 @@
-Contact: https://muthallat.com
-Expires: 2026-12-31T23:59:59.000Z
-Preferred-Languages: ar, en
-Canonical: https://muthallat.com/.well-known/security.txt
-
+Contact: https://wa.me/966548561357
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: ar
+Canonical: https://hsammnwralrfyd-del.github.io/rubou-albilad/.well-known/security.txt

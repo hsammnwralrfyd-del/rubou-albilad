@@ -19,8 +19,8 @@ const PoolCanopiesPage = () => {
       "تقدم مؤسسة ربوع البلاد حلول مظلات وتغطية المسابح للمنازل والفلل والاستراحات في مكة المكرمة والمدينة المنورة، بتصاميم عملية تناسب مساحة المسبح وطبيعة الموقع.",
     keywords:
       "مظلات مسابح مكة المكرمة, مظلات مسابح المدينة المنورة, تغطية مسابح, تركيب مظلات مسابح, مظلات مسابح للفلل, مظلات مسابح الاستراحات",
-    image: "https://canopies-makkah.com/pool-canopies/1.webp",
-    url: "https://canopies-makkah.com/",
+    image: "https://hsammnwralrfyd-del.github.io/rubou-albilad/pool-canopies/1.webp",
+    url: "https://hsammnwralrfyd-del.github.io/rubou-albilad/",
   });
 
   return (
