@@ -11,6 +11,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: string | null }>
   signOut: () => Promise<void>
   refreshSession: () => Promise<void>
+  resetPasswordForEmail: (email: string) => Promise<{ error: string | null }>
+  updatePassword: (password: string) => Promise<{ error: string | null }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -231,6 +233,48 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  const resetPasswordForEmail = async (email: string) => {
+    if (!supabase) {
+      return { error: 'Supabase client is not configured' }
+    }
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/rubou-albilad/admin/reset-password`,
+      })
+
+      if (error) {
+        return { error: error.message }
+      }
+
+      return { error: null }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'حدث خطأ غير متوقع أثناء إرسال رابط إعادة تعيين كلمة المرور'
+      return { error: message }
+    }
+  }
+
+  const updatePassword = async (password: string) => {
+    if (!supabase) {
+      return { error: 'Supabase client is not configured' }
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password,
+      })
+
+      if (error) {
+        return { error: error.message }
+      }
+
+      return { error: null }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'حدث خطأ غير متوقع أثناء تحديث كلمة المرور'
+      return { error: message }
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -241,6 +285,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signIn,
         signOut,
         refreshSession,
+        resetPasswordForEmail,
+        updatePassword,
       }}
     >
       {children}

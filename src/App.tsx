@@ -88,6 +88,7 @@ const RoofingTilesPage = lazy(() => import("./pages/RoofingTilesPage"));
 // ===============================
 
 const LoginPage = lazy(() => import("./pages/admin/LoginPage"));
+const ResetPasswordPage = lazy(() => import("./pages/admin/ResetPasswordPage"));
 const DashboardPage = lazy(() => import("./pages/admin/DashboardPage"));
 const SettingsPage = lazy(() => import("./pages/admin/SettingsPage"));
 const ServicesPage = lazy(() => import("./pages/admin/ServicesPage"));
@@ -277,6 +278,11 @@ const App = () => (
                 <Route
                   path="/admin/login"
                   element={<LoginPage />}
+                />
+
+                <Route
+                  path="/admin/reset-password"
+                  element={<ResetPasswordPage />}
                 />
 
                 <Route

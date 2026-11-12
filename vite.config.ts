@@ -31,6 +31,7 @@ const routes = [
   "fencing",
   "building-fencing",
   "roofing-tiles",
+  "admin/reset-password",
 ];
 
 export default defineConfig(({ mode }) => ({

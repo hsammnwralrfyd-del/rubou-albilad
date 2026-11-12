@@ -103,8 +103,11 @@ const LoginPage = () => {
               )}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm text-muted-foreground">
-            <Link to="/" className="hover:text-primary underline">
+          <div className="mt-4 space-y-2 text-center text-sm text-muted-foreground">
+            <Link to="/admin/reset-password" className="hover:text-primary underline block">
+              نسيت كلمة المرور؟
+            </Link>
+            <Link to="/" className="hover:text-primary underline block">
               العودة للموقع الرئيسي
             </Link>
           </div>
