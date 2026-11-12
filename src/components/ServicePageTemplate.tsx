@@ -1,7 +1,7 @@
+
 import Header from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ServiceGallery } from "@/components/ServiceGallery";
-import { contactLinks, client } from "@/config/client";
 import {
   getServiceGalleryPaths,
   getServiceHeroPath,
@@ -10,6 +10,7 @@ import {
   type ServiceSeoKey,
 } from "@/config/services";
 import { useSEO } from "@/hooks/useSEO";
+import { useSiteData } from "@/contexts/SiteDataContext";
 import { assetPath } from "@/lib/assetPath";
 import { seoData, generateStructuredData } from "@/utils/seo/seoData";
 import { getServiceFAQs } from "@/utils/seo/serviceFaqs";
@@ -36,7 +37,9 @@ interface ServicePageTemplateProps {
   service: ServiceDefinition;
 }
 
-const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
+const getRelatedServices = (
+  currentId: ServiceSeoKey
+): ServiceDefinition[] => {
   const canopyGroup: ServiceSeoKey[] = [
     "canopies",
     "carCanopies",
@@ -45,11 +48,13 @@ const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
     "frenchArchCanopies",
     "pyramidalCarCanopies",
   ];
+
   const shutterGroup: ServiceSeoKey[] = [
     "shutters",
     "laserShutters",
     "fencingShutters",
   ];
+
   const pergolaWoodGroup: ServiceSeoKey[] = [
     "pergolas",
     "woodCladding",
@@ -57,6 +62,7 @@ const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
     "claddingFacades",
     "doors",
   ];
+
   const warehouseSandwichGroup: ServiceSeoKey[] = [
     "warehouses",
     "warehousesDetail",
@@ -64,6 +70,7 @@ const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
     "sandwichWarehouses",
     "fabricHouses",
   ];
+
   const fencingGroup: ServiceSeoKey[] = [
     "fencing",
     "buildingFencing",
@@ -71,71 +78,211 @@ const getRelatedServices = (currentId: ServiceSeoKey): ServiceDefinition[] => {
   ];
 
   let targetGroup: ServiceSeoKey[] = [];
-  if (canopyGroup.includes(currentId)) targetGroup = canopyGroup;
-  else if (shutterGroup.includes(currentId)) targetGroup = shutterGroup;
-  else if (pergolaWoodGroup.includes(currentId)) targetGroup = pergolaWoodGroup;
-  else if (warehouseSandwichGroup.includes(currentId)) targetGroup = warehouseSandwichGroup;
-  else if (fencingGroup.includes(currentId)) targetGroup = fencingGroup;
-  else targetGroup = ["canopies", "shutters", "pergolas", "warehouses"];
+
+  if (canopyGroup.includes(currentId)) {
+    targetGroup = canopyGroup;
+  } else if (shutterGroup.includes(currentId)) {
+    targetGroup = shutterGroup;
+  } else if (pergolaWoodGroup.includes(currentId)) {
+    targetGroup = pergolaWoodGroup;
+  } else if (warehouseSandwichGroup.includes(currentId)) {
+    targetGroup = warehouseSandwichGroup;
+  } else if (fencingGroup.includes(currentId)) {
+    targetGroup = fencingGroup;
+  } else {
+    targetGroup = [
+      "canopies",
+      "shutters",
+      "pergolas",
+      "warehouses",
+    ];
+  }
 
   return allServices
-    .filter((s) => targetGroup.includes(s.id) && s.id !== currentId)
+    .filter(
+      (service) =>
+        targetGroup.includes(service.id) &&
+        service.id !== currentId
+    )
     .slice(0, 3);
 };
 
-export const ServicePageTemplate = ({
-  service,
-}: ServicePageTemplateProps) => {
-  // حماية من الصفحة البيضاء إذا كان تعريف الخدمة غير موجود
-  if (!service) {
-    return (
-      <div
-        dir="rtl"
-        className="flex min-h-screen items-center justify-center bg-ivory px-4 text-center"
-      >
-        <div>
-          <h1 className="mb-3 text-2xl font-extrabold text-charcoal">
-            الصفحة غير متاحة
-          </h1>
-          <p className="mb-6 text-charcoal-soft">
-            عذراً، لم يتم العثور على بيانات هذا القسم.
-          </p>
-          <a href="/" className="btn-luxury inline-flex">
-            العودة للرئيسية
-          </a>
-        </div>
-      </div>
-    );
+// ======================================
+// التعامل مع الصور المحلية والخارجية
+// ======================================
+
+const resolveImagePath = (image?: string | null): string => {
+  if (!image) return "";
+
+  const trimmed = image.trim();
+
+  if (
+    /^(https?:\/\/|data:|blob:)/i.test(trimmed)
+  ) {
+    return trimmed;
   }
 
-  // الحصول على بيانات SEO بشكل آمن
-  const seoInfo = seoData?.[service.id];
+  return assetPath(trimmed);
+};
 
-  const heroImage = getServiceHeroPath(service);
-  const galleryImages = getServiceGalleryPaths(service);
-  const relatedServices = getRelatedServices(service.id);
-  const activeAreas = ["مكة المكرمة", "المدينة المنورة"];
-  const faqs = getServiceFAQs(service.id, service.shortTitle);
+const getAbsoluteImageUrl = (
+  image: string,
+  siteUrl: string
+): string => {
+  if (/^(https?:\/\/|data:|blob:)/i.test(image)) {
+    return image;
+  }
 
-  // إذا لم توجد بيانات SEO، لا نوقف الصفحة
+  return `${siteUrl.replace(/\/$/, "")}/${image
+    .replace(/^\/+/, "")
+    .replace(/^rubou-albilad\//, "")}`;
+};
+
+// ======================================
+// قالب صفحة الخدمة
+// ======================================
+
+export const ServicePageTemplate = ({
+  service: initialService,
+}: ServicePageTemplateProps) => {
+  const {
+    servicesById,
+    servicePageDetailsById,
+    serviceSeoById,
+    contactLinks,
+    client,
+  } = useSiteData();
+
+  // بيانات الخدمة المحملة من Supabase
+  const service =
+    servicesById[initialService.id] || initialService;
+
+  // تفاصيل الخدمة المحفوظة
+  const pageDetails =
+    servicePageDetailsById[service.id];
+
+  // بيانات SEO المحفوظة
+  const databaseSeo =
+  serviceSeoById[service.id] || null;
+
+  // بيانات SEO الافتراضية
+  const defaultSeo = seoData?.[service.id];
+
+  // ======================================
+  // دمج البيانات المحفوظة مع الافتراضية
+  // ======================================
+
+  const serviceTitle =
+    service.title || initialService.title;
+
+  const heroSubtitle =
+    pageDetails?.hero_subtitle ||
+    service.heroSubtitle ||
+    initialService.heroSubtitle;
+
+  const introTitle =
+    pageDetails?.intro_title ||
+    service.introTitle ||
+    initialService.introTitle;
+
+  const introDescription =
+    service.introDescription ||
+    initialService.introDescription;
+
+  const benefitsTitle =
+    pageDetails?.benefits_title ||
+    service.benefitsTitle ||
+    initialService.benefitsTitle;
+
+  const features =
+    pageDetails?.features?.length
+      ? pageDetails.features
+      : service.features || initialService.features;
+
+  const benefits =
+    pageDetails?.benefits?.length
+      ? pageDetails.benefits
+      : service.benefits || initialService.benefits;
+
+  // ======================================
+  // الصور
+  // ======================================
+
+  const defaultHeroImage =
+    getServiceHeroPath(initialService);
+
+  const heroImage =
+  pageDetails?.header_image ||
+  (service as ServiceDefinition & {
+    headerImage?: string | null;
+  }).headerImage ||
+  defaultHeroImage;
+  
+  const galleryImages =
+    getServiceGalleryPaths(initialService);
+
+  const relatedServices =
+    getRelatedServices(service.id);
+
+  // ======================================
+  // المناطق والأسئلة الشائعة
+  // ======================================
+
+  const activeAreas = [
+    "مكة المكرمة",
+    "المدينة المنورة",
+  ];
+
+  const faqs = getServiceFAQs(
+    service.id,
+    service.shortTitle
+  );
+
+  // ======================================
+  // SEO من Supabase مع البيانات الافتراضية
+  // ======================================
+
+  const seoTitle =
+    databaseSeo?.seo_title ||
+    defaultSeo?.title ||
+    serviceTitle;
+
+  const seoDescription =
+    databaseSeo?.seo_description ||
+    defaultSeo?.description ||
+    introDescription ||
+    `${serviceTitle} في مكة المكرمة والمدينة المنورة`;
+
+  const seoKeywords =
+    databaseSeo?.seo_keywords ||
+    defaultSeo?.keywords ||
+    undefined;
+
+  const seoUrl =
+    defaultSeo?.url || client.siteUrl;
+
+  const absoluteHeroImage = getAbsoluteImageUrl(
+    heroImage,
+    client.siteUrl
+  );
+
   useSEO({
-    title: seoInfo?.title || service.title,
-    description:
-      seoInfo?.description ||
-      service.introDescription ||
-      `${service.title} في مكة المكرمة والمدينة المنورة`,
-    keywords: seoInfo?.keywords || undefined,
-    url: seoInfo?.url || client.siteUrl,
-    image: `${client.siteUrl}${heroImage}`,
-    structuredData: seoInfo
-      ? generateStructuredData(
-          service.id,
-          seoInfo.title,
-          seoInfo.description,
-          faqs
-        )
-      : undefined,
+    title: seoTitle,
+    description: seoDescription,
+    keywords: seoKeywords,
+    url: seoUrl,
+    image: absoluteHeroImage,
+    structuredData: generateStructuredData(
+      service.id,
+      seoTitle,
+      seoDescription,
+      faqs
+    ),
   });
+
+  // ======================================
+  // عرض الصفحة
+  // ======================================
 
   return (
     <div
@@ -149,8 +296,8 @@ export const ServicePageTemplate = ({
         <div className="grid lg:grid-cols-2">
           <div className="relative h-56 sm:h-72 lg:h-auto lg:min-h-[420px]">
             <img
-              src={assetPath(heroImage)}
-              alt={`${service.title} - ${service.heroSubtitle}`}
+              src={resolveImagePath(heroImage)}
+              alt={`${serviceTitle} - ${heroSubtitle}`}
               className="h-full w-full object-cover object-center"
               fetchPriority="high"
               onError={(e) => {
@@ -162,20 +309,23 @@ export const ServicePageTemplate = ({
           <div className="flex items-center px-4 py-10 sm:px-8 sm:py-14 lg:px-12">
             <div className="w-full max-w-xl">
               <div className="section-badge mb-6">
-                <HardHat size={14} className="shrink-0 text-bronze" />
+                <HardHat
+                  size={14}
+                  className="shrink-0 text-bronze"
+                />
                 <span>{service.badge}</span>
               </div>
 
               <h1 className="section-title mb-5 text-charcoal">
-                {service.title}
+                {serviceTitle}
 
                 <span className="mt-2 block text-gradient-luxury">
-                  {service.heroSubtitle}
+                  {heroSubtitle}
                 </span>
               </h1>
 
               <p className="section-desc mb-8">
-                {service.introDescription}
+                {introDescription}
               </p>
 
               <div className="flex w-full flex-col gap-3 sm:flex-row">
@@ -185,7 +335,10 @@ export const ServicePageTemplate = ({
                   rel="noopener noreferrer"
                   className="btn-luxury w-full sm:w-auto"
                 >
-                  <MessageCircle size={20} className="shrink-0" />
+                  <MessageCircle
+                    size={20}
+                    className="shrink-0"
+                  />
                   تواصل عبر واتساب
                   <Sparkles
                     size={16}
@@ -214,22 +367,25 @@ export const ServicePageTemplate = ({
         <div className="section-container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="section-title mb-5">
-              {service.introTitle}
+              {introTitle}
             </h2>
 
             <p className="section-desc mx-auto">
-              {service.introDescription}
+              {introDescription}
             </p>
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
-            {service.features.map((feature) => (
+            {features.map((feature, index) => (
               <div
-                key={feature.title}
+                key={`${feature.title}-${index}`}
                 className="group premium-card p-5 sm:p-6"
               >
                 <div className="icon-new mb-4">
-                  <Award size={22} className="shrink-0" />
+                  <Award
+                    size={22}
+                    className="shrink-0"
+                  />
                 </div>
 
                 <h3 className="mb-2 text-base font-extrabold text-charcoal sm:text-lg">
@@ -319,7 +475,7 @@ export const ServicePageTemplate = ({
                     {image && (
                       <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-sm">
                         <img
-                          src={assetPath(image)}
+                          src={resolveImagePath(image)}
                           alt={`${section.title} - ${service.shortTitle} مكة المكرمة والمدينة المنورة`}
                           loading="lazy"
                           decoding="async"
@@ -358,7 +514,7 @@ export const ServicePageTemplate = ({
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
             <div className="min-w-0">
               <h2 className="section-title mb-6">
-                {service.benefitsTitle}
+                {benefitsTitle}
 
                 <span className="mt-2 block text-gradient-luxury">
                   من {client.shortName}
@@ -366,9 +522,9 @@ export const ServicePageTemplate = ({
               </h2>
 
               <div className="space-y-3">
-                {service.benefits.map((benefit) => (
+                {benefits.map((benefit, index) => (
                   <div
-                    key={benefit}
+                    key={`${benefit}-${index}`}
                     className="flex items-start gap-3"
                   >
                     <div className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-bronze/15">
@@ -390,8 +546,8 @@ export const ServicePageTemplate = ({
               {galleryImages[0] && (
                 <div className="overflow-hidden rounded-2xl border border-bronze/15 shadow-md">
                   <img
-                    src={assetPath(galleryImages[0])}
-                    alt={service.title}
+                    src={resolveImagePath(galleryImages[0])}
+                    alt={serviceTitle}
                     loading="lazy"
                     decoding="async"
                     className="aspect-[4/3] w-full object-cover sm:h-[380px]"
@@ -449,23 +605,33 @@ export const ServicePageTemplate = ({
 
       {/* Service FAQs */}
       {faqs && faqs.length > 0 && (
-        <section className="section-padding bg-white border-t border-bronze/15">
+        <section className="section-padding border-t border-bronze/15 bg-white">
           <div className="section-container">
             <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
               <div className="section-badge mb-4">
-                <HelpCircle size={14} className="shrink-0 text-bronze" />
+                <HelpCircle
+                  size={14}
+                  className="shrink-0 text-bronze"
+                />
                 <span>الأسئلة الشائعة</span>
               </div>
+
               <h2 className="section-title text-charcoal">
                 أسئلة شائعة عن {service.shortTitle}
               </h2>
+
               <p className="section-desc mx-auto mt-2 text-charcoal-soft/70">
-                إجابات تفصيلية وموثوقة حول مواصفات وتركيب {service.shortTitle} في مكة المكرمة والمدينة المنورة
+                إجابات تفصيلية وموثوقة حول مواصفات وتركيب{" "}
+                {service.shortTitle} في مكة المكرمة والمدينة المنورة
               </p>
             </div>
 
             <div className="mx-auto max-w-3xl">
-              <Accordion type="single" collapsible className="space-y-3">
+              <Accordion
+                type="single"
+                collapsible
+                className="space-y-3"
+              >
                 {faqs.map((faq, index) => (
                   <AccordionItem
                     key={faq.question}
@@ -475,6 +641,7 @@ export const ServicePageTemplate = ({
                     <AccordionTrigger className="py-4 text-right text-sm font-bold text-charcoal hover:no-underline sm:text-base [&>svg]:shrink-0 [&>svg]:text-bronze">
                       {faq.question}
                     </AccordionTrigger>
+
                     <AccordionContent className="pb-4 text-sm leading-8 text-charcoal-soft/80 sm:text-base">
                       {faq.answer}
                     </AccordionContent>
@@ -488,18 +655,24 @@ export const ServicePageTemplate = ({
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
-        <section className="section-padding bg-ivory border-t border-bronze/15">
+        <section className="section-padding border-t border-bronze/15 bg-ivory">
           <div className="section-container">
             <div className="mb-8 text-center sm:mb-10">
               <div className="section-badge mb-4">
-                <Sparkles size={14} className="shrink-0 text-bronze" />
+                <Sparkles
+                  size={14}
+                  className="shrink-0 text-bronze"
+                />
                 <span>خدمات مترابطة</span>
               </div>
+
               <h2 className="section-title text-charcoal">
                 خدمات ذات صلة في مكة والمدينة
               </h2>
+
               <p className="section-desc mx-auto mt-2 text-charcoal-soft/70">
-                استكشف حلولاً متكاملة لتنفيذ المظلات والسواتر والإنشاءات بأعلى معايير الجودة
+                استكشف حلولاً متكاملة لتنفيذ المظلات والسواتر
+                والإنشاءات بأعلى معايير الجودة
               </p>
             </div>
 
@@ -510,15 +683,21 @@ export const ServicePageTemplate = ({
                   to={rel.route}
                   className="group premium-card block p-6 transition-all duration-300 hover:-translate-y-1 hover:border-bronze/40"
                 >
-                  <h3 className="mb-2 text-lg font-bold text-charcoal group-hover:text-bronze transition-colors">
+                  <h3 className="mb-2 text-lg font-bold text-charcoal transition-colors group-hover:text-bronze">
                     {rel.title}
                   </h3>
-                  <p className="mb-4 text-sm leading-relaxed text-charcoal-soft/70 line-clamp-2">
+
+                  <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-charcoal-soft/70">
                     {rel.heroSubtitle}
                   </p>
+
                   <div className="flex items-center gap-1.5 text-xs font-bold text-bronze">
                     <span>عرض تفاصيل الخدمة</span>
-                    <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+
+                    <ArrowLeft
+                      size={14}
+                      className="transition-transform group-hover:-translate-x-1"
+                    />
                   </div>
                 </Link>
               ))}
@@ -551,7 +730,10 @@ export const ServicePageTemplate = ({
               rel="noopener noreferrer"
               className="btn-luxury w-full sm:w-auto"
             >
-              <MessageCircle size={20} className="shrink-0" />
+              <MessageCircle
+                size={20}
+                className="shrink-0"
+              />
               اطلب عرض سعر مجاني
             </a>
 

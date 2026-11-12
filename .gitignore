@@ -1,4 +1,16 @@
-﻿node_modules/
+# Dependencies
+node_modules/
 dist/
+
+# Environment variables & local secrets
+.env
+.env.*
+!.env.example
+
+# Temporary files & backups
+*.backup
+*.bak
 backup-arabic-*/
 backup-before-restore-*/
+src/Untitled
+src/App.tsx.backup

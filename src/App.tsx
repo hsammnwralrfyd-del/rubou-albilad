@@ -1,3 +1,4 @@
+๏ปฟ
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -10,108 +11,87 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
+
 import FloatingButtons from "./components/FloatingButtons";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./contexts/AuthContext";
+import { SiteDataProvider } from "./contexts/SiteDataContext";
 
 // ===============================
-// วแีÝอษ วแัฦํำํษ
+// ุงูุตูุญุฉ ุงูุฑุฆูุณูุฉ
 // ===============================
+
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ===============================
-// วแใูแวส
+// ุงูู…ุธูุงุช
 // ===============================
-const CanopiesPage = lazy(
-  () => import("./pages/CanopiesPage")
-);
-const CarCanopiesPage = lazy(
-  () => import("./pages/CarCanopiesPage")
-);
-const GardenCanopiesPage = lazy(
-  () => import("./pages/GardenCanopiesPage")
-);
-const SchoolCanopiesPage = lazy(
-  () => import("./pages/SchoolCanopiesPage")
-);
-const FrenchArchCanopiesPage = lazy(
-  () => import("./pages/FrenchArchCanopiesPage")
-);
-const PyramidalCarCanopiesPage = lazy(
-  () => import("./pages/PyramidalCarCanopiesPage")
-);
+
+const CanopiesPage = lazy(() => import("./pages/CanopiesPage"));
+const CarCanopiesPage = lazy(() => import("./pages/CarCanopiesPage"));
+const GardenCanopiesPage = lazy(() => import("./pages/GardenCanopiesPage"));
+const SchoolCanopiesPage = lazy(() => import("./pages/SchoolCanopiesPage"));
+const FrenchArchCanopiesPage = lazy(() => import("./pages/FrenchArchCanopiesPage"));
+const PyramidalCarCanopiesPage = lazy(() => import("./pages/PyramidalCarCanopiesPage"));
 
 // ===============================
-// วแำๆวสั
+// ุงูุณูุงุชุฑ
 // ===============================
-const ShuttersPage = lazy(
-  () => import("./pages/ShuttersPage")
-);
-const LaserShuttersPage = lazy(
-  () => import("./pages/LaserShuttersPage")
-);
-const FencingShuttersPage = lazy(
-  () => import("./pages/FencingShuttersPage")
-);
+
+const ShuttersPage = lazy(() => import("./pages/ShuttersPage"));
+const LaserShuttersPage = lazy(() => import("./pages/LaserShuttersPage"));
+const FencingShuttersPage = lazy(() => import("./pages/FencingShuttersPage"));
 
 // ===============================
-// วแศัฬๆแวส ๆวแสแศํำวส วแฮิศํษ
+// ุงูุจุฑุฌููุงุช ูุงูุชูุจูุณุงุช ุงูุฎุดุจูุฉ
 // ===============================
-const PergolasPage = lazy(
-  () => import("./pages/PergolasPage")
-);
-const WoodCladdingPage = lazy(
-  () => import("./pages/WoodCladdingPage")
-);
+
+const PergolasPage = lazy(() => import("./pages/PergolasPage"));
+const WoodCladdingPage = lazy(() => import("./pages/WoodCladdingPage"));
 
 // ===============================
-// วแส฿ำํวส
+// ุงูุชูุณูุงุช
 // ===============================
-const CladdingPage = lazy(
-  () => import("./pages/CladdingPage")
-);
-const CladdingFacadesPage = lazy(
-  () => import("./pages/CladdingFacadesPage")
-);
-const DoorsPage = lazy(
-  () => import("./pages/DoorsPage")
-);
+
+const CladdingPage = lazy(() => import("./pages/CladdingPage"));
+const CladdingFacadesPage = lazy(() => import("./pages/CladdingFacadesPage"));
+const DoorsPage = lazy(() => import("./pages/DoorsPage"));
 
 // ===============================
-// วแๅไวฬั
+// ุงูููุงุฌุฑ
 // ===============================
-const WarehousesPage = lazy(
-  () => import("./pages/WarehousesPage")
-);
-const WarehousesDetailPage = lazy(
-  () => import("./pages/WarehousesDetailPage")
-);
-const SandwichPanelPage = lazy(
-  () => import("./pages/SandwichPanelPage")
-);
-const SandwichWarehousesPage = lazy(
-  () => import("./pages/SandwichWarehousesPage")
-);
-const FabricHousesPage = lazy(
-  () => import("./pages/FabricHousesPage")
-);
+
+const WarehousesPage = lazy(() => import("./pages/WarehousesPage"));
+const WarehousesDetailPage = lazy(() => import("./pages/WarehousesDetailPage"));
+const SandwichPanelPage = lazy(() => import("./pages/SandwichPanelPage"));
+const SandwichWarehousesPage = lazy(() => import("./pages/SandwichWarehousesPage"));
+const FabricHousesPage = lazy(() => import("./pages/FabricHousesPage"));
 
 // ===============================
-// วแิศๆ฿
+// ุงูุดุจูู
 // ===============================
-const FencingPage = lazy(
-  () => import("./pages/FencingPage")
-);
-const BuildingFencingPage = lazy(
-  () => import("./pages/BuildingFencingPage")
-);
+
+const FencingPage = lazy(() => import("./pages/FencingPage"));
+const BuildingFencingPage = lazy(() => import("./pages/BuildingFencingPage"));
 
 // ===============================
-// วแÞัวใํฯ
+// ุงููุฑุงู…ูุฏ
 // ===============================
-const RoofingTilesPage = lazy(
-  () => import("./pages/RoofingTilesPage")
-);
+
+const RoofingTilesPage = lazy(() => import("./pages/RoofingTilesPage"));
+
+// ===============================
+// ุตูุญุงุช ุงูุฅุฏุงุฑุฉ
+// ===============================
+
+const LoginPage = lazy(() => import("./pages/admin/LoginPage"));
+const DashboardPage = lazy(() => import("./pages/admin/DashboardPage"));
+const SettingsPage = lazy(() => import("./pages/admin/SettingsPage"));
+const ServicesPage = lazy(() => import("./pages/admin/ServicesPage"));
+const GalleryPage = lazy(() => import("./pages/admin/GalleryPage"));
 
 // ===============================
 // React Query
@@ -120,7 +100,7 @@ const RoofingTilesPage = lazy(
 const queryClient = new QueryClient();
 
 // ===============================
-// ิวิษ วแสอใํแ
+// ุดุงุดุฉ ุงูุชุญู…ูู
 // ===============================
 
 const LoadingFallback = () => (
@@ -132,14 +112,14 @@ const LoadingFallback = () => (
       <div className="mx-auto mb-4 h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent" />
 
       <p className="text-lg text-secondary">
-        ฬวัํ วแสอใํแ...
+        ุฌุงุฑู ุงูุชุญู…ูู...
       </p>
     </div>
   </div>
 );
 
 // ===============================
-// วแสุศํÞ
+// ุงูุชุทุจูู
 // ===============================
 
 const App = () => (
@@ -149,153 +129,210 @@ const App = () => (
       <Sonner />
 
       <BrowserRouter basename="/rubou-albilad/">
-        <Suspense fallback={<LoadingFallback />}>
-          <Routes>
+        <AuthProvider>
+          <SiteDataProvider>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
 
-            {/* =========================
-                วแีÝอษ วแัฦํำํษ
-            ========================= */}
+                {/* ุงูุตูุญุฉ ุงูุฑุฆูุณูุฉ */}
 
-            <Route
-              path="/"
-              element={<Index />}
-            />
+                <Route
+                  path="/"
+                  element={<Index />}
+                />
 
-            {/* =========================
-                วแใูแวส
-            ========================= */}
-            <Route
-              path="/canopies"
-              element={<CanopiesPage />}
-            />
-            <Route
-              path="/car-canopies"
-              element={<CarCanopiesPage />}
-            />
-            <Route
-              path="/garden-canopies"
-              element={<GardenCanopiesPage />}
-            />
-            <Route
-              path="/school-canopies"
-              element={<SchoolCanopiesPage />}
-            />
-            <Route
-              path="/french-arch-canopies"
-              element={<FrenchArchCanopiesPage />}
-            />
-            <Route
-              path="/pyramidal-car-canopies"
-              element={<PyramidalCarCanopiesPage />}
-            />
+                {/* ุงูู…ุธูุงุช */}
 
-            {/* =========================
-                วแำๆวสั
-            ========================= */}
-            <Route
-              path="/shutters"
-              element={<ShuttersPage />}
-            />
-            <Route
-              path="/laser-shutters"
-              element={<LaserShuttersPage />}
-            />
-            <Route
-              path="/fencing-shutters"
-              element={<FencingShuttersPage />}
-            />
+                <Route
+                  path="/canopies"
+                  element={<CanopiesPage />}
+                />
 
-            {/* =========================
-                วแศัฬๆแวส ๆวแสแศํำวส วแฮิศํษ
-            ========================= */}
-            <Route
-              path="/pergolas"
-              element={<PergolasPage />}
-            />
-            <Route
-              path="/wood-cladding"
-              element={<WoodCladdingPage />}
-            />
+                <Route
+                  path="/car-canopies"
+                  element={<CarCanopiesPage />}
+                />
 
-            {/* =========================
-                วแส฿ำํวส
-            ========================= */}
-            <Route
-              path="/cladding"
-              element={<CladdingPage />}
-            />
-            <Route
-              path="/cladding-facades"
-              element={<CladdingFacadesPage />}
-            />
-            <Route
-              path="/doors"
-              element={<DoorsPage />}
-            />
+                <Route
+                  path="/garden-canopies"
+                  element={<GardenCanopiesPage />}
+                />
 
-            {/* =========================
-                วแๅไวฬั
-            ========================= */}
-            <Route
-              path="/warehouses"
-              element={<WarehousesPage />}
-            />
-            <Route
-              path="/warehouses-detail"
-              element={<WarehousesDetailPage />}
-            />
-            <Route
-              path="/sandwich-panel"
-              element={<SandwichPanelPage />}
-            />
-            <Route
-              path="/sandwich-warehouses"
-              element={<SandwichWarehousesPage />}
-            />
-            <Route
-              path="/fabric-houses"
-              element={<FabricHousesPage />}
-            />
+                <Route
+                  path="/school-canopies"
+                  element={<SchoolCanopiesPage />}
+                />
 
-            {/* =========================
-                วแิศๆ฿
-            ========================= */}
-            <Route
-              path="/fencing"
-              element={<FencingPage />}
-            />
-            <Route
-              path="/building-fencing"
-              element={<BuildingFencingPage />}
-            />
+                <Route
+                  path="/french-arch-canopies"
+                  element={<FrenchArchCanopiesPage />}
+                />
 
-            {/* =========================
-                วแÞัวใํฯ
-            ========================= */}
-            <Route
-              path="/roofing-tiles"
-              element={<RoofingTilesPage />}
-            />
+                <Route
+                  path="/pyramidal-car-canopies"
+                  element={<PyramidalCarCanopiesPage />}
+                />
 
-            {/* =========================
-                รํ ัวศุ Ûํั ใๆฬๆฯ
-            ========================= */}
+                {/* ุงูุณูุงุชุฑ */}
 
-            <Route
-              path="*"
-              element={<NotFound />}
-            />
+                <Route
+                  path="/shutters"
+                  element={<ShuttersPage />}
+                />
 
-          </Routes>
-        </Suspense>
+                <Route
+                  path="/laser-shutters"
+                  element={<LaserShuttersPage />}
+                />
 
-        {/* ราัวั วแวสีวแ วแฺวฦใษ */}
-        <FloatingButtons />
+                <Route
+                  path="/fencing-shutters"
+                  element={<FencingShuttersPage />}
+                />
 
+                {/* ุงูุจุฑุฌููุงุช ูุงูุชูุจูุณุงุช ุงูุฎุดุจูุฉ */}
+
+                <Route
+                  path="/pergolas"
+                  element={<PergolasPage />}
+                />
+
+                <Route
+                  path="/wood-cladding"
+                  element={<WoodCladdingPage />}
+                />
+
+                {/* ุงูุชูุณูุงุช */}
+
+                <Route
+                  path="/cladding"
+                  element={<CladdingPage />}
+                />
+
+                <Route
+                  path="/cladding-facades"
+                  element={<CladdingFacadesPage />}
+                />
+
+                <Route
+                  path="/doors"
+                  element={<DoorsPage />}
+                />
+
+                {/* ุงูููุงุฌุฑ */}
+
+                <Route
+                  path="/warehouses"
+                  element={<WarehousesPage />}
+                />
+
+                <Route
+                  path="/warehouses-detail"
+                  element={<WarehousesDetailPage />}
+                />
+
+                <Route
+                  path="/sandwich-panel"
+                  element={<SandwichPanelPage />}
+                />
+
+                <Route
+                  path="/sandwich-warehouses"
+                  element={<SandwichWarehousesPage />}
+                />
+
+                <Route
+                  path="/fabric-houses"
+                  element={<FabricHousesPage />}
+                />
+
+                {/* ุงูุดุจูู */}
+
+                <Route
+                  path="/fencing"
+                  element={<FencingPage />}
+                />
+
+                <Route
+                  path="/building-fencing"
+                  element={<BuildingFencingPage />}
+                />
+
+                {/* ุงููุฑุงู…ูุฏ */}
+
+                <Route
+                  path="/roofing-tiles"
+                  element={<RoofingTilesPage />}
+                />
+
+                {/* ุตูุญุงุช ุงูุฅุฏุงุฑุฉ */}
+
+                {/* ุชุญููู /admin ุฅูู ุตูุญุฉ ุชุณุฌูู ุงูุฏุฎูู */}
+
+                <Route
+                  path="/admin"
+                  element={<Navigate to="/admin/login" replace />}
+                />
+
+                <Route
+                  path="/admin/login"
+                  element={<LoginPage />}
+                />
+
+                <Route
+                  path="/admin/dashboard"
+                  element={
+                    <ProtectedRoute>
+                      <DashboardPage />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/admin/settings"
+                  element={
+                    <ProtectedRoute>
+                      <SettingsPage />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/admin/services"
+                  element={
+                    <ProtectedRoute>
+                      <ServicesPage />
+                    </ProtectedRoute>
+                  }
+                />
+
+                <Route
+                  path="/admin/gallery"
+                  element={
+                    <ProtectedRoute>
+                      <GalleryPage />
+                    </ProtectedRoute>
+                  }
+                />
+
+                {/* ุฃู ุฑุงุจุท ุบูุฑ ู…ูุฌูุฏ */}
+
+                <Route
+                  path="*"
+                  element={<NotFound />}
+                />
+
+              </Routes>
+            </Suspense>
+
+            {/* ุฃุฒุฑุงุฑ ุงูุงุชุตุงู ุงูุนุงุฆู…ุฉ */}
+
+            <FloatingButtons />
+          </SiteDataProvider>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
 
 export default App;
-

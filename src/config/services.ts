@@ -1,934 +1,730 @@
 import type { LucideIcon } from "lucide-react";
+
 import {
+
   Sun,
+
   Shield,
+
   Armchair,
+
   Warehouse,
+
   Layers,
+
   Fence,
+
   Car,
+
   TreePine,
+
 } from "lucide-react";
 
+
+
 export type ServiceSeoKey =
+
   | "canopies"
+
   | "shutters"
+
   | "pergolas"
+
   | "warehouses"
+
   | "sandwichPanel"
+
   | "fencing"
+
   | "carCanopies"
+
   | "gardenCanopies"
+
   | "schoolCanopies"
+
   | "frenchArchCanopies"
+
   | "pyramidalCarCanopies"
+
   | "laserShutters"
+
   | "fencingShutters"
+
   | "woodCladding"
+
   | "cladding"
+
   | "claddingFacades"
+
   | "doors"
+
   | "warehousesDetail"
+
   | "sandwichWarehouses"
+
   | "fabricHouses"
+
   | "buildingFencing"
+
   | "roofingTiles";
 
+
+
 export interface ServiceDefinition {
+
   id: ServiceSeoKey;
+
   slug: string;
+
   route: string;
+
   folder: string;
+
   title: string;
+
   shortTitle: string;
+
   badge: string;
+
   heroSubtitle: string;
+
   introTitle: string;
+
   introDescription: string;
+
   galleryTitle: string;
+
   galleryDescription: string;
+
   benefitsTitle: string;
+
   hasHeaderImage: boolean;
+
   galleryImageCount: number;
+
   cardImage: string;
+
   icon: LucideIcon;
+
   features: Array<{ title: string; description: string }>;
+
   benefits: string[];
+
   serviceTypes: Array<{ title: string; description: string }>;
+
   contentSections: Array<{ title: string; description: string; imageIndex: number }>;
+
   areasText: string;
+
 }
+
+
 
 /** Hero uses header.webp when available; gallery uses numbered images only. */
+
 export function getServiceHeroPath(service: ServiceDefinition): string {
+
   if (service.hasHeaderImage) {
+
     return `/${service.folder}/header.webp`;
+
   }
+
   return `/${service.folder}/1.webp`;
+
 }
+
+
 
 export function getServiceGalleryPaths(service: ServiceDefinition): string[] {
+
   return Array.from(
+
     { length: service.galleryImageCount },
+
     (_, index) => `/${service.folder}/${index + 1}.webp`
+
   );
+
 }
 
+
+
 const defaultFeatures = [
+
   {
+
     title: "خبرة واسعة",
+
     description: "سنوات من الخبرة في تنفيذ المشاريع بجودة عالية في مكة والمدينة",
+
   },
+
   {
+
     title: "جودة مضمونة",
+
     description: "استخدام مواد عالية الجودة مناسبة لمناخ المملكة",
+
   },
+
   {
+
     title: "أسعار تنافسية",
+
     description: "أفضل الأسعار مع ضمان الجودة والتنفيذ الاحترافي",
+
   },
+
   {
+
     title: "خدمة سريعة",
+
     description: "فريق عمل محترف يلتزم بمواعيد التسليم المتفق عليها",
+
   },
+
 ];
 
-export const servicesList: ServiceDefinition[] = [
+
+
+const primaryServices: ServiceDefinition[] = [
+
   {
+
     id: "canopies",
-    slug: "canopies",
-    route: "/canopies",
-    folder: "Gallery1",
-    title: "المظلات",
-    shortTitle: "المظلات",
-    badge: "مقاول مظلات",
-    heroSubtitle: "حماية شاملة من الشمس",
-    introTitle: "المظلات في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ مظلات متنوعة بجودة عالية وأسعار منافسة في مكة المكرمة والمدينة المنورة. تصاميم عصرية وهياكل متينة توفر حماية فعالة من الشمس والأمطار.",
-    galleryTitle: "معرض أعمال المظلات",
-    galleryDescription: "نماذج من مشاريع المظلات المنفذة بجودة عالية",
-    benefitsTitle: "مميزات المظلات",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Gallery1/1.webp",
-    icon: Sun,
-    features: defaultFeatures,
-    benefits: [
-      "حماية من أشعة الشمس القوية",
-      "مقاومة للعوامل الجوية والأمطار",
-      "تصاميم عصرية فاخرة",
-      "هياكل حديدية متينة",
-      "سهولة الصيانة والتنظيف",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "مظلات قماش", description: "مظلات بقماش PVC عالي الجودة مقاوم للعوامل الجوية" },
-      { title: "مظلات بولي كربونيت", description: "ألواح شفافة توفر حماية ممتازة مع إضاءة طبيعية" },
-      { title: "مظلات حديدية", description: "هياكل حديدية متينة تدوم طويلاً" },
-      { title: "مظلات للمساحات المختلفة", description: "حلول مخصصة لمساحات متنوعة" },
-    ],
-    contentSections: [
-      { title: "مظلات للمواقف", description: "تنفيذ مظلات لمواقف السيارات بتصاميم عصرية تجمع بين الجمال والمتانة.", imageIndex: 0 },
-      { title: "مظلات للفلل", description: "حلول أنيقة للفلل والمنازل توفر الظل والحماية مع مظهر خارجي فاخر.", imageIndex: 1 },
-      { title: "مظلات مودرن", description: "تصميمات عصرية بمواد خفيفة وأقمشة مقاومة للأشعة فوق البنفسجية.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "فريق متخصص في القياس والتصميم والتركيب وفق المواصفات الهندسية.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "shutters",
-    slug: "shutters",
-    route: "/shutters",
-    folder: "shutters",
-    title: "السواتر",
-    shortTitle: "السواتر",
-    badge: "مقاول سواتر",
-    heroSubtitle: "خصوصية وحماية",
-    introTitle: "السواتر في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تركيب سواتر خصوصية بتصاميم متنوعة توفر الحماية والخصوصية للمنازل والفلل والمنشآت في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال السواتر",
-    galleryDescription: "نماذج من مشاريع السواتر المختلفة",
-    benefitsTitle: "مميزات السواتر",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/shutters/1.webp",
-    icon: Shield,
-    features: defaultFeatures,
-    benefits: [
-      "خصوصية كاملة",
-      "تصاميم عصرية متنوعة",
-      "حماية وعزل بصري",
-      "خامات مقاومة للصدأ",
-      "تنفيذ حسب المساحة",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "سواتر حديد", description: "سواتر حديدية متينة" },
-      { title: "سواتر شينكو", description: "سواتر بألواح الشينكو" },
-      { title: "سواتر خشبية", description: "سواتر خشبية للفلل" },
-      { title: "سواتر ليزر", description: "تصاميم ليزر عصرية" },
-    ],
-    contentSections: [
-      { title: "سواتر للفلل", description: "سواتر خصوصية للفلل والقصور.", imageIndex: 0 },
-      { title: "سواتر للمنازل", description: "حلول للمنازل والاستراحات.", imageIndex: 1 },
-      { title: "سواتر للأسطح", description: "تغطية للأسطح والمداخل.", imageIndex: 2 },
-      { title: "تصميم مخصص", description: "تنفيذ حسب مساحة وموقع العميل.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "pergolas",
-    slug: "pergolas",
-    route: "/pergolas",
-    folder: "Pergolas1",
-    title: "البرجولات والجلسات",
-    shortTitle: "البرجولات",
-    badge: "مقاول برجولات",
-    heroSubtitle: "جمال وظل للمساحات الخارجية",
-    introTitle: "البرجولات والجلسات في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ جلسات خارجية وبرجولات خشبية وحديدية بتصاميم عصرية تناسب الحدائق والاستراحات والفلل في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال البرجولات",
-    galleryDescription: "نماذج من مشاريع البرجولات والجلسات الخارجية",
-    benefitsTitle: "مميزات البرجولات",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
-    icon: Armchair,
-    features: defaultFeatures,
-    benefits: [
-      "تصاميم عصرية أنيقة",
-      "خشب طبيعي وحديد متين",
-      "ظل مريح للجلسات",
-      "تعزيز قيمة المكان",
-      "تنفيذ حسب المساحة",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "برجولات خشبية", description: "خشب طبيعي بجودة عالية" },
-      { title: "برجولات حديدية", description: "هياكل حديدية بتصاميم عصرية" },
-      { title: "جلسات خارجية", description: "جلسات للحدائق والاستراحات" },
-      { title: "تصميم مخصص", description: "حسب ذوق العميل ومساحة المكان" },
-    ],
-    contentSections: [
-      { title: "برجولات للفلل", description: "برجولات فاخرة للفلل والقصور.", imageIndex: 0 },
-      { title: "جلسات للاستراحات", description: "جلسات خارجية مريحة للاستراحات.", imageIndex: 1 },
-      { title: "برجولات للحدائق", description: "حلول ظل للحدائق والمساحات الخضراء.", imageIndex: 2 },
-      { title: "تشطيبات فاخرة", description: "تفاصيل دقيقة بلمسات فنية راقية.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "warehouses",
-    slug: "warehouses",
-    route: "/warehouses",
-    folder: "WarehousesDetail1",
-    title: "الهناجر والمستودعات",
-    shortTitle: "الهناجر",
-    badge: "مقاول هناجر",
-    heroSubtitle: "مساحات واسعة محمية",
-    introTitle: "الهناجر والمستودعات في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "بناء هناجر ومستودعات بمساحات مختلفة مع عزل حراري وتنفيذ احترافي للمشاريع الصناعية والتجارية والزراعية في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال الهناجر والمستودعات",
-    galleryDescription: "نماذج من مشاريع الهناجر والمستودعات",
-    benefitsTitle: "مميزات الهناجر والمستودعات",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/WarehousesDetail1/1.webp",
-    icon: Warehouse,
-    features: defaultFeatures,
-    benefits: [
-      "عزل حراري وصوتي ممتاز",
-      "بناء سريع واقتصادي",
-      "مساحات مختلفة",
-      "هياكل حديدية متينة",
-      "مناسبة للمشاريع الصناعية",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "هناجر صناعية", description: "هناجر للمصانع والورش" },
-      { title: "مستودعات تجارية", description: "مستودعات للتخزين والتوزيع" },
-      { title: "هناجر زراعية", description: "حلول للمزارع والمشاريع الزراعية" },
-      { title: "تصميم هندسي", description: "تصميم حسب متطلبات المشروع" },
-    ],
-    contentSections: [
-      { title: "هناجر صناعية", description: "هناجر للمصانع والورش بمواصفات عالية.", imageIndex: 0 },
-      { title: "مستودعات تجارية", description: "مستودعات للتخزين والتوزيع.", imageIndex: 1 },
-      { title: "هناجر زراعية", description: "حلول للمزارع والمشاريع الزراعية.", imageIndex: 2 },
-      { title: "تنفيذ شامل", description: "من التصميم حتى التسليم النهائي.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "sandwichPanel",
-    slug: "sandwich-panel",
-    route: "/sandwich-panel",
-    folder: "sandwich-warehouses",
-    title: "ساندوتش بانل",
-    shortTitle: "ساندوتش بانل",
-    badge: "مقاول ساندوتش بانل",
-    heroSubtitle: "عزل حراري ممتاز",
-    introTitle: "ساندوتش بانل في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ ألواح ساندوتش بانل للعزل الحراري والصوتي في المباني والهناجر والمستودعات في مكة المكرمة والمدينة المنورة بأعلى معايير الجودة.",
-    galleryTitle: "معرض أعمال ساندوتش بانل",
-    galleryDescription: "نماذج من مشاريع ساندوتش بانل",
-    benefitsTitle: "مميزات ساندوتش بانل",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/sandwich-warehouses/1.webp",
-    icon: Layers,
-    features: defaultFeatures,
-    benefits: [
-      "عزل حراري وصوتي ممتاز",
-      "خفيف الوزن وسهل التركيب",
-      "مقاومة للعوامل الجوية",
-      "عمر افتراضي طويل",
-      "توفير الطاقة",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "ألواح ساندوتش بانل", description: "ألواح عازلة للحرارة والصوت" },
-      { title: "أسقف ساندوتش بانل", description: "تغطية الأسقف بألواح عازلة" },
-      { title: "جدران ساندوتش بانل", description: "بناء الجدران العازلة" },
-      { title: "تصميم مخصص", description: "حسب متطلبات المشروع" },
-    ],
-    contentSections: [
-      { title: "أسقف عازلة", description: "تغطية الأسقف بألواح ساندوتش بانل عازلة.", imageIndex: 0 },
-      { title: "جدران عازلة", description: "بناء الجدران بألواح ساندوتش بانل.", imageIndex: 1 },
-      { title: "هناجر عازلة", description: "هناجر بساندوتش بانل للعزل الحراري.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تركيب دقيق وفق المواصفات.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "fencing",
-    slug: "fencing",
-    route: "/fencing",
-    folder: "fencing",
-    title: "الشبوك والتسوير",
-    shortTitle: "الشبوك",
-    badge: "مقاول شبوك",
-    heroSubtitle: "حماية أمنية احترافية",
-    introTitle: "الشبوك والتسوير في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ شبوك وتسوير للمباني والأراضي والمزارع ومواقع المشاريع في مكة المكرمة والمدينة المنورة بأعلى معايير الجودة.",
-    galleryTitle: "معرض أعمال الشبوك والتسوير",
-    galleryDescription: "نماذج من مشاريع الشبوك وتسوير المباني",
-    benefitsTitle: "مميزات الشبوك والتسوير",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/fencing/1.webp",
-    icon: Fence,
-    features: defaultFeatures,
-    benefits: [
-      "حماية أمنية للمواقع",
-      "شبوك بأشكال متنوعة",
-      "تسوير احترافي للأراضي",
-      "مواد مقاومة للصدأ",
-      "تنفيذ حسب الموقع",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "شبوك حديدية", description: "شبوك حديدية متينة" },
-      { title: "تسوير المباني", description: "تسوير للفلل والمنشآت" },
-      { title: "شبوك للمصانع", description: "حلول للمواقع الصناعية" },
-      { title: "تصميم مخصص", description: "حسب مساحة وطبيعة الموقع" },
-    ],
-    contentSections: [
-      { title: "شبوك حديدية فاخرة", description: "شبوك بتصاميم عصرية وجودة عالية.", imageIndex: 0 },
-      { title: "تسوير المباني", description: "تسوير أنيق للفلل والمنازل.", imageIndex: 1 },
-      { title: "شبوك للمزارع", description: "تسوير للمزارع والأراضي الزراعية.", imageIndex: 2 },
-      { title: "شبوك للمصانع", description: "حلول أمنية للمواقع الصناعية.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-];
 
-// جميع الخدمات (بما في ذلك الإضافية) لإنشاء servicesById
-export const allServices: ServiceDefinition[] = [
-  ...servicesList,
-  {
-    id: "carCanopies",
-    slug: "car-canopies",
-    route: "/car-canopies",
+    slug: "canopies",
+
+    route: "/canopies",
+
     folder: "Gallery1",
-    title: "مظلات السيارات",
-    shortTitle: "مظلات سيارات",
-    badge: "مقاول مظلات سيارات",
-    heroSubtitle: "حماية لسيارتك",
-    introTitle: "مظلات السيارات في مكة المكرمة والمدينة المنورة",
+
+    title: "المظلات",
+
+    shortTitle: "المظلات",
+
+    badge: "مقاول مظلات",
+
+    heroSubtitle: "حماية شاملة من الشمس",
+
+    introTitle: "المظلات في مكة المكرمة والمدينة المنورة",
+
     introDescription:
-      "تنفيذ مظلات سيارات بتصاميم متنوعة في مكة المكرمة والمدينة المنورة. تصاميم هرمية ومقوسة توفر حماية فعالة من الشمس والأمطار.",
-    galleryTitle: "معرض أعمال مظلات السيارات",
-    galleryDescription: "نماذج من مشاريع مظلات السيارات",
-    benefitsTitle: "مميزات مظلات السيارات",
+
+      "تنفيذ مظلات متنوعة بجودة عالية وأسعار منافسة في مكة المكرمة والمدينة المنورة. تصاميم عصرية وهياكل متينة توفر حماية فعالة من الشمس والأمطار.",
+
+    galleryTitle: "معرض أعمال المظلات",
+
+    galleryDescription: "نماذج من مشاريع المظلات المنفذة بجودة عالية",
+
+    benefitsTitle: "مميزات المظلات",
+
     hasHeaderImage: false,
+
     galleryImageCount: 4,
+
     cardImage: "/Gallery1/1.webp",
-    icon: Car,
+
+    icon: Sun,
+
     features: defaultFeatures,
+
     benefits: [
-      "حماية من أشعة الشمس",
-      "مقاومة للعوامل الجوية",
-      "تصاميم عصرية متنوعة",
+
+      "حماية من أشعة الشمس القوية",
+
+      "مقاومة للعوامل الجوية والأمطار",
+
+      "تصاميم عصرية فاخرة",
+
       "هياكل حديدية متينة",
-      "سهولة التركيب",
+
+      "سهولة الصيانة والتنظيف",
+
       "ضمان على الأعمال بحسب الاتفاق",
+
     ],
+   
     serviceTypes: [
-      { title: "مظلات هرمية", description: "مظلات سيارات هرمية بتصاميم عصرية" },
-      { title: "مظلات مقوسة", description: "مظلات سيارات مقوسة أنيقة" },
-      { title: "مظلات للمواقف", description: "حلول لمواقف السيارات العامة والخاصة" },
-      { title: "تصميم مخصص", description: "حسب مساحة الموقف" },
+
+      { title: "مظلات قماش", description: "مظلات بقماش PVC عالي الجودة مقاوم للعوامل الجوية" },
+
+      { title: "مظلات بولي كربونيت", description: "ألواح شفافة توفر حماية ممتازة مع إضاءة طبيعية" },
+
+      { title: "مظلات حديدية", description: "هياكل حديدية متينة تدوم طويلاً" },
+
+      { title: "مظلات للمساحات المختلفة", description: "حلول مخصصة لمساحات متنوعة" },
+
     ],
+
     contentSections: [
-      { title: "مظلات للمنازل", description: "مظلات سيارات للمنازل والفلل.", imageIndex: 0 },
-      { title: "مظلات للمواقف", description: "حلول لمواقف السيارات العامة.", imageIndex: 1 },
-      { title: "مظلات للشركات", description: "مظلات لمواقف الشركات والمؤسسات.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تركيب دقيق وفق المواصفات.", imageIndex: 3 },
+
+      { title: "مظلات للمواقف", description: "تنفيذ مظلات لمواقف السيارات بتصاميم عصرية تجمع بين الجمال والمتانة.", imageIndex: 0 },
+
+      { title: "مظلات للفلل", description: "حلول أنيقة للفلل والمنازل توفر الظل والحماية مع مظهر خارجي فاخر.", imageIndex: 1 },
+
+      { title: "مظلات مودرن", description: "تصميمات عصرية بمواد خفيفة وأقمشة مقاومة للأشعة فوق البنفسجية.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "فريق متخصص في القياس والتصميم والتركيب وفق المواصفات الهندسية.", imageIndex: 3 },
+
     ],
+
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
   },
+
   {
-    id: "gardenCanopies",
-    slug: "garden-canopies",
-    route: "/garden-canopies",
-    folder: "Gallery1",
-    title: "مظلات الحدائق",
-    shortTitle: "مظلات حدائق",
-    badge: "مقاول مظلات حدائق",
-    heroSubtitle: "ظل مريح للمساحات الخضراء",
-    introTitle: "مظلات الحدائق في مكة المكرمة والمدينة المنورة",
+
+    id: "shutters",
+
+    slug: "shutters",
+
+    route: "/shutters",
+
+    folder: "shutters",
+
+    title: "السواتر",
+
+    shortTitle: "السواتر",
+
+    badge: "مقاول سواتر",
+
+    heroSubtitle: "خصوصية وحماية",
+
+    introTitle: "السواتر في مكة المكرمة والمدينة المنورة",
+
     introDescription:
-      "تركيب مظلات للحدائق والمساحات الخارجية في مكة المكرمة والمدينة المنورة بأشكال متنوعة توفر الظل وتضيف جمالًا للمكان.",
-    galleryTitle: "معرض أعمال مظلات الحدائق",
-    galleryDescription: "نماذج من مشاريع مظلات الحدائق",
-    benefitsTitle: "مميزات مظلات الحدائق",
+
+      "تركيب سواتر خصوصية بتصاميم متنوعة توفر الحماية والخصوصية للمنازل والفلل والمنشآت في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال السواتر",
+
+    galleryDescription: "نماذج من مشاريع السواتر المختلفة",
+
+    benefitsTitle: "مميزات السواتر",
+
     hasHeaderImage: false,
+
     galleryImageCount: 4,
-    cardImage: "/Gallery1/1.webp",
-    icon: TreePine,
-    features: defaultFeatures,
-    benefits: [
-      "ظل مريح للحدائق",
-      "تصاميم متنوعة",
-      "مواد مقاومة للعوامل الجوية",
-      "تعزيز المظهر الجمالي",
-      "تركيب احترافي",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "مظلات حدائق قماش", description: "أقمشة عالية الجودة للحدائق" },
-      { title: "مظلات حدائق حديد", description: "هياكل حديدية متينة" },
-      { title: "مظلات للجلسات", description: "حلول ظل للجلسات الخارجية" },
-      { title: "تصميم مخصص", description: "حسب مساحة وشكل الحديقة" },
-    ],
-    contentSections: [
-      { title: "مظلات للحدائق المنزلية", description: "حلول ظل للحدائق المنزلية.", imageIndex: 0 },
-      { title: "مظلات للاستراحات", description: "مظلات للاستراحات والمساحات الترفيهية.", imageIndex: 1 },
-      { title: "مظلات للمساحات العامة", description: "تغطية للمساحات الخضراء.", imageIndex: 2 },
-      { title: "تنفيذ حسب الموقع", description: "قياس وتصميم حسب طبيعة المكان.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "schoolCanopies",
-    slug: "school-canopies",
-    route: "/school-canopies",
-    folder: "Gallery1",
-    title: "مظلات المدارس",
-    shortTitle: "مظلات مدارس",
-    badge: "مقاول مظلات مدارس",
-    heroSubtitle: "حماية للمنشآت التعليمية",
-    introTitle: "مظلات المدارس في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ مظلات للمدارس والساحات والممرات ومواقف السيارات في مكة المكرمة والمدينة المنورة بحلول عملية تناسب المنشآت التعليمية.",
-    galleryTitle: "معرض أعمال مظلات المدارس",
-    galleryDescription: "نماذج من مشاريع مظلات المدارس",
-    benefitsTitle: "مميزات مظلات المدارس",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Gallery1/1.webp",
-    icon: Sun,
-    features: defaultFeatures,
-    benefits: [
-      "مناسبة للمنشآت التعليمية",
-      "تغطية الساحات والممرات",
-      "حلول مناسبة لمواقف السيارات",
-      "تصاميم متنوعة حسب مساحة الموقع",
-      "حماية من أشعة الشمس والعوامل الجوية",
-      "تنفيذ مناسب للمشاريع والمنشآت",
-    ],
-    serviceTypes: [
-      { title: "مظلات ساحات المدارس", description: "تغطية ساحات المدارس" },
-      { title: "مظلات ممرات الطلاب", description: "مظلات للممرات" },
-      { title: "مظلات مواقف السيارات", description: "مظلات لمواقف المدارس" },
-      { title: "تصميم وتنفيذ", description: "خدمة متكاملة" },
-    ],
-    contentSections: [
-      { title: "مظلات ساحات المدارس", description: "تغطية ساحات المدارس.", imageIndex: 0 },
-      { title: "مظلات ممرات الطلاب", description: "مظلات للممرات.", imageIndex: 1 },
-      { title: "مظلات مواقف السيارات", description: "مظلات لمواقف المدارس.", imageIndex: 2 },
-      { title: "تصميم وتنفيذ", description: "خدمة متكاملة.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "frenchArchCanopies",
-    slug: "french-arch-canopies",
-    route: "/french-arch-canopies",
-    folder: "french-arch-canopies",
-    title: "مظلات القوس الفرنسي",
-    shortTitle: "مظلات قوس فرنسي",
-    badge: "مقاول مظلات قوس فرنسي",
-    heroSubtitle: "تصميم عصري أنيق",
-    introTitle: "مظلات القوس الفرنسي في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ مظلات بتصميم القوس الفرنسي العصري في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار منافسة.",
-    galleryTitle: "معرض أعمال مظلات القوس الفرنسي",
-    galleryDescription: "نماذج من مشاريع مظلات القوس الفرنسي",
-    benefitsTitle: "مميزات مظلات القوس الفرنسي",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Gallery1/1.webp",
-    icon: Sun,
-    features: defaultFeatures,
-    benefits: [
-      "تصميم عصري أنيق",
-      "مظهر فاخر",
-      "هياكل متينة",
-      "تنوع في التصاميم",
-      "مناسبة للفلل والمنشآت",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "مظلات قوس فرنسي", description: "تصميم عصري" },
-      { title: "مظلات للفلل", description: "مناسبة للفلل" },
-      { title: "مظلات للمشاريع", description: "مناسبة للمشاريع" },
-      { title: "تصميم مخصص", description: "حسب الطلب" },
-    ],
-    contentSections: [
-      { title: "مظلات للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
-      { title: "مظلات للمشاريع", description: "مناسبة للمشاريع.", imageIndex: 1 },
-      { title: "تصميم عصري", description: "تصميم عصري.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "pyramidalCarCanopies",
-    slug: "pyramidal-car-canopies",
-    route: "/pyramidal-car-canopies",
-    folder: "Gallery1",
-    title: "مظلات السيارات الهرمية",
-    shortTitle: "مظلات هرمية",
-    badge: "مقاول مظلات هرمية",
-    heroSubtitle: "تصميم هرمي عصري",
-    introTitle: "مظلات السيارات الهرمية في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ مظلات سيارات بتصميم هرمي عصري في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار منافسة.",
-    galleryTitle: "معرض أعمال مظلات السيارات الهرمية",
-    galleryDescription: "نماذج من مشاريع مظلات السيارات الهرمية",
-    benefitsTitle: "مميزات مظلات السيارات الهرمية",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Gallery1/1.webp",
-    icon: Car,
-    features: defaultFeatures,
-    benefits: [
-      "تصميم هرمي عصري",
-      "مظهر فاخر",
-      "هياكل متينة",
-      "تنوع في التصاميم",
-      "مناسبة للمواقف",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "مظلات هرمية", description: "تصميم هرمي" },
-      { title: "مظلات للمنازل", description: "مناسبة للمنازل" },
-      { title: "مظلات للمواقف", description: "مناسبة للمواقف" },
-      { title: "تصميم مخصص", description: "حسب الطلب" },
-    ],
-    contentSections: [
-      { title: "مظلات للمنازل", description: "مناسبة للمنازل.", imageIndex: 0 },
-      { title: "مظلات للمواقف", description: "مناسبة للمواقف.", imageIndex: 1 },
-      { title: "تصميم هرمي", description: "تصميم هرمي.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "laserShutters",
-    slug: "laser-shutters",
-    route: "/laser-shutters",
-    folder: "Gallery1",
-    title: "سواتر الليزر",
-    shortTitle: "سواتر ليزر",
-    badge: "مقاول سواتر ليزر",
-    heroSubtitle: "تصاميم ليزر عصرية",
-    introTitle: "سواتر الليزر في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تركيب سواتر ليزر بتصاميم عصرية توفر الحماية والخصوصية في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال سواتر الليزر",
-    galleryDescription: "نماذج من مشاريع سواتر الليزر",
-    benefitsTitle: "مميزات سواتر الليزر",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
+
+    cardImage: "/shutters/1.webp",
+
     icon: Shield,
+
     features: defaultFeatures,
+
     benefits: [
-      "تصاميم ليزر عصرية",
+
       "خصوصية كاملة",
-      "مظهر فاخر",
+
+      "تصاميم عصرية متنوعة",
+
+      "حماية وعزل بصري",
+
       "خامات مقاومة للصدأ",
+
       "تنفيذ حسب المساحة",
+
       "ضمان على الأعمال بحسب الاتفاق",
+
     ],
+
     serviceTypes: [
-      { title: "سواتر ليزر", description: "تصاميم ليزر" },
-      { title: "سواتر للفلل", description: "مناسبة للفلل" },
-      { title: "سواتر للمنازل", description: "مناسبة للمنازل" },
-      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+      { title: "سواتر حديد", description: "سواتر حديدية متينة" },
+
+      { title: "سواتر شينكو", description: "سواتر بألواح الشينكو" },
+
+      { title: "سواتر خشبية", description: "سواتر خشبية للفلل" },
+
+      { title: "سواتر ليزر", description: "تصاميم ليزر عصرية" },
+
     ],
+
     contentSections: [
-      { title: "سواتر للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
-      { title: "سواتر للمنازل", description: "مناسبة للمنازل.", imageIndex: 1 },
-      { title: "تصاميم ليزر", description: "تصاميم ليزر.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+      { title: "سواتر للفلل", description: "سواتر خصوصية للفلل والقصور.", imageIndex: 0 },
+
+      { title: "سواتر للمنازل", description: "حلول للمنازل والاستراحات.", imageIndex: 1 },
+
+      { title: "سواتر للأسطح", description: "تغطية للأسطح والمداخل.", imageIndex: 2 },
+
+      { title: "تصميم مخصص", description: "تنفيذ حسب مساحة وموقع العميل.", imageIndex: 3 },
+
     ],
+
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
   },
+
   {
-    id: "fencingShutters",
-    slug: "fencing-shutters",
-    route: "/fencing-shutters",
-    folder: "Gallery1",
-    title: "سواتر الشبوك",
-    shortTitle: "سواتر شبوك",
-    badge: "مقاول سواتر شبوك",
-    heroSubtitle: "حماية وخصوصية",
-    introTitle: "سواتر الشبوك في مكة المكرمة والمدينة المنورة",
+
+    id: "pergolas",
+
+    slug: "pergolas",
+
+    route: "/pergolas",
+
+    folder: "Pergolas1",
+
+    title: "البرجولات والجلسات",
+
+    shortTitle: "البرجولات",
+
+    badge: "مقاول برجولات",
+
+    heroSubtitle: "جمال وظل للمساحات الخارجية",
+
+    introTitle: "البرجولات والجلسات في مكة المكرمة والمدينة المنورة",
+
     introDescription:
-      "تركيب سواتر شبوك بتصاميم متنوعة توفر الحماية والخصوصية في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال سواتر الشبوك",
-    galleryDescription: "نماذج من مشاريع سواتر الشبوك",
-    benefitsTitle: "مميزات سواتر الشبوك",
+
+      "تنفيذ جلسات خارجية وبرجولات خشبية وحديدية بتصاميم عصرية تناسب الحدائق والاستراحات والفلل في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال البرجولات",
+
+    galleryDescription: "نماذج من مشاريع البرجولات والجلسات الخارجية",
+
+    benefitsTitle: "مميزات البرجولات",
+
     hasHeaderImage: false,
+
     galleryImageCount: 4,
+
     cardImage: "/Pergolas1/1.webp",
-    icon: Shield,
+
+    icon: Armchair,
+
     features: defaultFeatures,
+
     benefits: [
-      "حماية وخصوصية",
-      "تصاميم متنوعة",
-      "خامات مقاومة للصدأ",
+
+      "تصاميم عصرية أنيقة",
+
+      "خشب طبيعي وحديد متين",
+
+      "ظل مريح للجلسات",
+
+      "تعزيز قيمة المكان",
+
       "تنفيذ حسب المساحة",
-      "مناسبة للفلل والمنازل",
+
       "ضمان على الأعمال بحسب الاتفاق",
+
     ],
+
     serviceTypes: [
-      { title: "سواتر شبوك", description: "سواتر شبوك" },
-      { title: "سواتر للفلل", description: "مناسبة للفلل" },
-      { title: "سواتر للمنازل", description: "مناسبة للمنازل" },
-      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+      { title: "برجولات خشبية", description: "خشب طبيعي بجودة عالية" },
+
+      { title: "برجولات حديدية", description: "هياكل حديدية بتصاميم عصرية" },
+
+      { title: "جلسات خارجية", description: "جلسات للحدائق والاستراحات" },
+
+      { title: "تصميم مخصص", description: "حسب ذوق العميل ومساحة المكان" },
+
     ],
+
     contentSections: [
-      { title: "سواتر للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
-      { title: "سواتر للمنازل", description: "مناسبة للمنازل.", imageIndex: 1 },
-      { title: "سواتر شبوك", description: "سواتر شبوك.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+      { title: "برجولات للفلل", description: "برجولات فاخرة للفلل والقصور.", imageIndex: 0 },
+
+      { title: "جلسات للاستراحات", description: "جلسات خارجية مريحة للاستراحات.", imageIndex: 1 },
+
+      { title: "برجولات للحدائق", description: "حلول ظل للحدائق والمساحات الخضراء.", imageIndex: 2 },
+
+      { title: "تشطيبات فاخرة", description: "تفاصيل دقيقة بلمسات فنية راقية.", imageIndex: 3 },
+
     ],
+
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
   },
+
   {
-    id: "woodCladding",
-    slug: "wood-cladding",
-    route: "/wood-cladding",
-    folder: "Gallery1",
-    title: "البرجولات والتلبيسات الخشبية",
-    shortTitle: "تلبيسات خشبية",
-    badge: "مقاول تلبيسات خشبية",
-    heroSubtitle: "جمال خشبي طبيعي",
-    introTitle: "البرجولات والتلبيسات الخشبية في مكة المكرمة والمدينة المنورة",
+
+    id: "warehouses",
+
+    slug: "warehouses",
+
+    route: "/warehouses",
+
+    folder: "WarehousesDetail1",
+
+    title: "الهناجر والمستودعات",
+
+    shortTitle: "الهناجر",
+
+    badge: "مقاول هناجر",
+
+    heroSubtitle: "مساحات واسعة محمية",
+
+    introTitle: "الهناجر والمستودعات في مكة المكرمة والمدينة المنورة",
+
     introDescription:
-      "تصميم وتركيب برجولات وتلبيسات خشبية بجودة عالية في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال البرجولات والتلبيسات الخشبية",
-    galleryDescription: "نماذج من مشاريع البرجولات والتلبيسات الخشبية",
-    benefitsTitle: "مميزات البرجولات والتلبيسات الخشبية",
+
+      "بناء هناجر ومستودعات بمساحات مختلفة مع عزل حراري وتنفيذ احترافي للمشاريع الصناعية والتجارية والزراعية في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال الهناجر والمستودعات",
+
+    galleryDescription: "نماذج من مشاريع الهناجر والمستودعات",
+
+    benefitsTitle: "مميزات الهناجر والمستودعات",
+
     hasHeaderImage: false,
+
     galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
-    icon: TreePine,
-    features: defaultFeatures,
-    benefits: [
-      "مظهر خشبي طبيعي",
-      "خشب معالج ومقاوم",
-      "تصاميم متنوعة",
-      "مناسبة للمساحات الخارجية والداخلية",
-      "عزل حراري وصوتي",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "برجولات خشبية", description: "برجولات خشبية" },
-      { title: "تلبيس حوائط خشبية", description: "تلبيس حوائط" },
-      { title: "أسقف خشبية", description: "أسقف خشبية" },
-      { title: "تصميم مخصص", description: "حسب الطلب" },
-    ],
-    contentSections: [
-      { title: "برجولات خشبية", description: "برجولات خشبية.", imageIndex: 0 },
-      { title: "تلبيس حوائط خشبية", description: "تلبيس حوائط.", imageIndex: 1 },
-      { title: "أسقف خشبية", description: "أسقف خشبية.", imageIndex: 2 },
-      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "cladding",
-    slug: "cladding",
-    route: "/cladding",
-    folder: "Gallery1",
-    title: "تكسيات بديل الخشب",
-    shortTitle: "تكسيات",
-    badge: "مقاول تكسيات",
-    heroSubtitle: "بديل خشب عصري",
-    introTitle: "تكسيات بديل الخشب في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تركيب تكسيات بديل الخشب (WPC) بجودة عالية في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال تكسيات بديل الخشب",
-    galleryDescription: "نماذج من مشاريع تكسيات بديل الخشب",
-    benefitsTitle: "مميزات تكسيات بديل الخشب",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
-    icon: Layers,
-    features: defaultFeatures,
-    benefits: [
-      "مظهر خشبي طبيعي",
-      "مقاومة للعوامل الجوية",
-      "لا تحتاج صيانة",
-      "اقتصادية على المدى الطويل",
-      "عزل حراري وصوتي",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "تكسيات WPC خارجية", description: "ألواح خشب بلاستيكي معالج لمقاومة أشعة الشمس المباشرة والرطوبة العالية." },
-      { title: "بديل خشب داخلي وديكوري", description: "تكسيات جدارية عصرية تضفي دفئاً وفخامة لمداخل الفلل والصالات والمجالس." },
-      { title: "تكسيات أسوار وجدران", description: "تغطية الأسوار والواجهات الخارجية بحلول جمالية مستدامة وعازلة للحرارة." },
-      { title: "تصاميم وألوان مخصصة", description: "تشكيلة ألوان خشبية متناسقة مع الطراز المعماري الحديث حسب اختيار العميل." },
-    ],
-    contentSections: [
-      { title: "تكسيات WPC المعالجة", description: "ألواح متطورة تجمع بين جمال الخشب الطبيعي وقوة البوليمر المعالج ضد التآكل والحرارة بمكة والمدينة.", imageIndex: 0 },
-      { title: "ديكورات واجهات وأسوار", description: "لمسات فنية راقية تعكس الفخامة وتتحمل العوامل الجوية القاسية دون أن تتشقق أو يتغير لونها.", imageIndex: 1 },
-      { title: "عزل ومقاومة متفوقة", description: "مقاومة جيدة للمياه والرطوبة مع توفير حماية إضافية للجدران من حرارة الصيف.", imageIndex: 2 },
-      { title: "تثبيت هندسي احترافي", description: "تأسيس شاسيهات حديد معالجة ضد الصدأ لضمان استقامة ودقة الألواح وثباتها على المدى الطويل.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "claddingFacades",
-    slug: "cladding-facades",
-    route: "/cladding-facades",
-    folder: "Gallery1",
-    title: "تكسيات الواجهات",
-    shortTitle: "تكسيات واجهات",
-    badge: "مقاول تكسيات واجهات",
-    heroSubtitle: "واجهات عصرية",
-    introTitle: "تكسيات الواجهات في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تركيب تكسيات واجهات بديل الخشب في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال تكسيات الواجهات",
-    galleryDescription: "نماذج من مشاريع تكسيات الواجهات",
-    benefitsTitle: "مميزات تكسيات الواجهات",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
-    icon: Layers,
-    features: defaultFeatures,
-    benefits: [
-      "مظهر عصري فاخر",
-      "مقاومة للعوامل الجوية",
-      "عزل حراري ممتاز",
-      "تصاميم متنوعة",
-      "مناسبة للفلل والمباني",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "كلادينج واجهات محلات", description: "تصاميم عصرية جذابة تبرز هوية النشاط التجاري وتتحمل العوامل الجوية المتغيرة." },
-      { title: "واجهات مباني وعمائر", description: "تكسيات واجهات كاملة بألواح ألومنيوم خفيفة الوزن وعالية المتانة للمنشآت والشركات." },
-      { title: "أسقف ومظلات كلادينج", description: "تغطية الأسقف والمداخل بشرائح كلادينج فاخرة مقاومة للحرارة وتسربات المياه." },
-      { title: "كلادينج مقاوم للحريق", description: "ألواح بمواصفات أمان عالية معتمدة للمنشآت التجارية والسكنية في مكة والمدينة." },
-    ],
-    contentSections: [
-      { title: "تصاميم واجهات عصرية", description: "تجديد مظهر المباني والمنشآت وتحويلها إلى طراز معماري حديث ومميز في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
-      { title: "متانة ومقاومة عالية", description: "ألواح ألومنيوم متعددة الطبقات معالجة ضد الرطوبة والشمس والتآكل وسهلة التنظيف والصيانة.", imageIndex: 1 },
-      { title: "دقة الهياكل الحاملة", description: "تأسيس قطاعات حديد مجلفنة مطابقة لأعلى المواصفات لضمان أقصى درجات الثبات والأمان الإنشائي.", imageIndex: 2 },
-      { title: "تناغم الألوان والتشطيب", description: "خيارات واسعة من درجات الألوان اللامعة والمطفية مع تشطيبات معمارية متناسقة تلبي رغبة العميل.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "doors",
-    slug: "doors",
-    route: "/doors",
-    folder: "Gallery1",
-    title: "تلبيس الأبواب",
-    shortTitle: "أبواب",
-    badge: "مقاول أبواب",
-    heroSubtitle: "أبواب أنيقة",
-    introTitle: "تلبيس الأبواب في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تلبيس أبواب بديل الخشب في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال تلبيس الأبواب",
-    galleryDescription: "نماذج من مشاريع تلبيس الأبواب",
-    benefitsTitle: "مميزات تلبيس الأبواب",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
-    icon: Shield,
-    features: defaultFeatures,
-    benefits: [
-      "مظهر خشبي طبيعي",
-      "مقاومة للعوامل الجوية",
-      "تصاميم متنوعة",
-      "مناسبة للأبواب الداخلية والخارجية",
-      "سهولة التركيب",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "تلبيس أبواب حديد", description: "تغطية الأبواب الحديدية بشرائح بديل الخشب لمظهر فاخر يجمع قوة الفولاذ وأناقة الخشب." },
-      { title: "أبواب مداخل فلل", description: "تصاميم راقية لمداخل الفلل والقصور تتناسق مع الواجهات الخارجية الحديثة والديكور العام." },
-      { title: "تجديد أبواب قديمة", description: "إعادة إحياء الأبواب السابقة دون الحاجة لتغيير الهيكل الأساسي بتكلفة اقتصادية ومظهر مودرن." },
-      { title: "إكسسوارات ومقابض مودرن", description: "تركيب مسكات ومقابض عصرية متناسقة مع شرائح بديل الخشب لإبراز فخامة المدخل." },
-    ],
-    contentSections: [
-      { title: "مظهر خشبي فاخر", description: "إضفاء طابع معماري دافئ وراقٍ على مداخل المنازل والفلل في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
-      { title: "مقاومة الشمس والحرارة", description: "استخدام خامات WPC لا تتأثر بحرارة الشمس المباشرة ولا تبهت ألوانها ولا تحتاج لصيانة مستمرة.", imageIndex: 1 },
-      { title: "حماية الهيكل الأساسي", description: "تغليف محكم يحمي الحديد من الرطوبة والصدأ ويزيد من العمر الافتراضي لباب المدخل.", imageIndex: 2 },
-      { title: "تشطيب متقن وتفاصيل هندسية", description: "قص دقيق وتركيب احترافي للفواصل والزوايا لضمان مظهر متكامل يعكس أعلى مستويات الإتقان.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
-    id: "warehousesDetail",
-    slug: "warehouses-detail",
-    route: "/warehouses-detail",
-    folder: "Gallery1",
-    title: "هناجر ومستودعات تفصيلية",
-    shortTitle: "هناجر تفصيلية",
-    badge: "مقاول هناجر تفصيلية",
-    heroSubtitle: "هناجر متكاملة",
-    introTitle: "هناجر ومستودعات تفصيلية في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ هناجر ومستودعات تفصيلية بمساحات مختلفة في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال الهناجر التفصيلية",
-    galleryDescription: "نماذج من مشاريع الهناجر التفصيلية",
-    benefitsTitle: "مميزات الهناجر التفصيلية",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
+
     cardImage: "/WarehousesDetail1/1.webp",
+
     icon: Warehouse,
+
     features: defaultFeatures,
+
     benefits: [
-      "هناجر حديدية",
-      "هناجر ساندوتش بانل",
-      "هناجر شينكو",
-      "تصاميم متنوعة",
-      "مناسبة للمشاريع الصناعية والتجارية",
+
+      "عزل حراري وصوتي ممتاز",
+
+      "بناء سريع واقتصادي",
+
+      "مساحات مختلفة",
+
+      "هياكل حديدية متينة",
+
+      "مناسبة للمشاريع الصناعية",
+
       "ضمان على الأعمال بحسب الاتفاق",
+
     ],
+
     serviceTypes: [
-      { title: "هناجر صناعية وتجارية", description: "مبانٍ فولاذية متكاملة للمصانع والورش والشركات بمساحات واسعة مفتوحة دون أعمدة وسطية." },
-      { title: "مستودعات تخزين وبضائع", description: "بيئات تخزين آمنة ومحمية من الحرارة والأمطار والرياح لحفظ السلع والمواد بكفاءة." },
-      { title: "هناجر زراعية وحظائر", description: "حلول مظللة ومحمية للمزارع وحفظ الأعلاف والمعدات وتربية المواشي بمواصفات معتمدة." },
-      { title: "مواقف معدات وشاحنات", description: "تغطيات وهياكل واسعة توفر الظل والحماية للآليات والمعدات الثقيلة والشاحنات." },
+
+      { title: "هناجر صناعية", description: "هناجر للمصانع والورش" },
+
+      { title: "مستودعات تجارية", description: "مستودعات للتخزين والتوزيع" },
+
+      { title: "هناجر زراعية", description: "حلول للمزارع والمشاريع الزراعية" },
+
+      { title: "تصميم هندسي", description: "تصميم حسب متطلبات المشروع" },
+
     ],
+
     contentSections: [
-      { title: "تأسيس القواعد والهياكل", description: "دراسة هندسية لأحمال الرياح والأوزان وتنفيذ قواعد خرسانية وجمالونات حديد عالية التحمل.", imageIndex: 0 },
-      { title: "التغطيات والعوازل المتقدمة", description: "خيارات متعددة من الصاج المعرج أو الساندوتش بانل لتوفير أقصى درجات الحماية والعزل الحراري.", imageIndex: 1 },
-      { title: "التهوية وتصريف الأمطار", description: "تركيب فتحات تهوية ومداخن سحب الهواء ومزاريب تصريف مياه الأمطار بكفاءة في مكة والمدينة.", imageIndex: 2 },
-      { title: "إشراف وتنفيذ دقيق", description: "التزام كامل بمخططات التنفيذ وجودة اللحام وتثبيت البراغي والشدادات وفق أعلى معايير السلامة.", imageIndex: 3 },
+
+      { title: "هناجر صناعية", description: "هناجر للمصانع والورش بمواصفات عالية.", imageIndex: 0 },
+
+      { title: "مستودعات تجارية", description: "مستودعات للتخزين والتوزيع.", imageIndex: 1 },
+
+      { title: "هناجر زراعية", description: "حلول للمزارع والمشاريع الزراعية.", imageIndex: 2 },
+
+      { title: "تنفيذ شامل", description: "من التصميم حتى التسليم النهائي.", imageIndex: 3 },
+
     ],
+
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
   },
+
   {
-    id: "sandwichWarehouses",
-    slug: "sandwich-warehouses",
-    route: "/sandwich-warehouses",
+
+    id: "sandwichPanel",
+
+    slug: "sandwich-panel",
+
+    route: "/sandwich-panel",
+
     folder: "sandwich-warehouses",
-    title: "هناجر ساندوتش بانل",
-    shortTitle: "هناجر ساندوتش",
-    badge: "مقاول هناجر ساندوتش",
+
+    title: "ساندوتش بانل",
+
+    shortTitle: "ساندوتش بانل",
+
+    badge: "مقاول ساندوتش بانل",
+
     heroSubtitle: "عزل حراري ممتاز",
-    introTitle: "هناجر ساندوتش بانل في مكة المكرمة والمدينة المنورة",
+
+    introTitle: "ساندوتش بانل في مكة المكرمة والمدينة المنورة",
+
     introDescription:
-      "تنفيذ هناجر ساندوتش بانل للعزل الحراري في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال هناجر ساندوتش بانل",
-    galleryDescription: "نماذج من مشاريع هناجر ساندوتش بانل",
-    benefitsTitle: "مميزات هناجر ساندوتش بانل",
+
+      "تنفيذ ألواح ساندوتش بانل للعزل الحراري والصوتي في المباني والهناجر والمستودعات في مكة المكرمة والمدينة المنورة بأعلى معايير الجودة.",
+
+    galleryTitle: "معرض أعمال ساندوتش بانل",
+
+    galleryDescription: "نماذج من مشاريع ساندوتش بانل",
+
+    benefitsTitle: "مميزات ساندوتش بانل",
+
     hasHeaderImage: false,
+
     galleryImageCount: 4,
+
     cardImage: "/sandwich-warehouses/1.webp",
-    icon: Warehouse,
+
+    icon: Layers,
+
     features: defaultFeatures,
+
     benefits: [
-      "عزل حراري ممتاز",
-      "عزل صوتي جيد",
-      "بناء سريع",
-      "خفيف الوزن",
-      "مناسبة للمستودعات والمصانع",
+
+      "عزل حراري وصوتي ممتاز",
+
+      "خفيف الوزن وسهل التركيب",
+
+      "مقاومة للعوامل الجوية",
+
+      "عمر افتراضي طويل",
+
+      "توفير الطاقة",
+
       "ضمان على الأعمال بحسب الاتفاق",
+
     ],
+
     serviceTypes: [
-      { title: "هناجر ساندوتش معزولة", description: "مستودعات تحافظ على برودة الهواء وتقلل من استهلاك أجهزة التكييف والكهرباء." },
-      { title: "مستودعات تبريد وتجميد", description: "غرف ومخازن مخصصة لحفظ المواد الغذائية والأدوية بعزل حراري محكم عالي الكثافة." },
-      { title: "ورش ومصانع مكيفة", description: "مبانٍ مجهزة لبيئات العمل الصناعية توفر عزلاً صوتياً وحرارياً متقدماً للعاملين." },
-      { title: "ملاحق وغرف ساندوتش جاهزة", description: "إنشاء غرف مسبقة الصنع وملاحق سريعة على الأسطح وفي الأحواش بمتانة عالية." },
+
+      { title: "ألواح ساندوتش بانل", description: "ألواح عازلة للحرارة والصوت" },
+
+      { title: "أسقف ساندوتش بانل", description: "تغطية الأسقف بألواح عازلة" },
+
+      { title: "جدران ساندوتش بانل", description: "بناء الجدران العازلة" },
+
+      { title: "تصميم مخصص", description: "حسب متطلبات المشروع" },
+
     ],
+
     contentSections: [
-      { title: "كفاءة العزل الحراري الفائق", description: "ألواح ساندوتش بانل محقونة بالبولي يوريثان تحمي المنشأة من حرارة صيف مكة والمدينة الشديدة.", imageIndex: 0 },
-      { title: "سرعة البناء والتركيب", description: "نظام تركيب تعشيقي متين يختصر زمن الإنجاز ويوفر تكاليف التشغيل مقارنة بالبناء التقليدي.", imageIndex: 1 },
-      { title: "مقاومة الرطوبة والاشتعال", description: "طبقات صاج مجلفن مدهون بدهانات بوليستر مقاومة للصدأ والتآكل وتدوم طويلاً ضد العوامل الجوية.", imageIndex: 2 },
-      { title: "إحكام الفواصل ومنع التسرب", description: "تقفيل كامل للفواصل بمواد مانعة للتسرب تقلل من دخول الغبار ومياه الأمطار والحرارة.", imageIndex: 3 },
+
+      { title: "أسقف عازلة", description: "تغطية الأسقف بألواح ساندوتش بانل عازلة.", imageIndex: 0 },
+
+      { title: "جدران عازلة", description: "بناء الجدران بألواح ساندوتش بانل.", imageIndex: 1 },
+
+      { title: "هناجر عازلة", description: "هناجر بساندوتش بانل للعزل الحراري.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تركيب دقيق وفق المواصفات.", imageIndex: 3 },
+
     ],
+
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "fencing",
+
+    slug: "fencing",
+
+    route: "/fencing",
+
+    folder: "fencing",
+
+    title: "الشبوك والتسوير",
+
+    shortTitle: "الشبوك",
+
+    badge: "مقاول شبوك",
+
+    heroSubtitle: "حماية أمنية احترافية",
+
+    introTitle: "الشبوك والتسوير في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ شبوك وتسوير للمباني والأراضي والمزارع ومواقع المشاريع في مكة المكرمة والمدينة المنورة بأعلى معايير الجودة.",
+
+    galleryTitle: "معرض أعمال الشبوك والتسوير",
+
+    galleryDescription: "نماذج من مشاريع الشبوك وتسوير المباني",
+
+    benefitsTitle: "مميزات الشبوك والتسوير",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/fencing/1.webp",
+
+    icon: Fence,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "حماية أمنية للمواقع",
+
+      "شبوك بأشكال متنوعة",
+
+      "تسوير احترافي للأراضي",
+
+      "مواد مقاومة للصدأ",
+
+      "تنفيذ حسب الموقع",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "شبوك حديدية", description: "شبوك حديدية متينة" },
+
+      { title: "تسوير المباني", description: "تسوير للفلل والمنشآت" },
+
+      { title: "شبوك للمصانع", description: "حلول للمواقع الصناعية" },
+
+      { title: "تصميم مخصص", description: "حسب مساحة وطبيعة الموقع" },
+
+    ],
+
+    contentSections: [
+
+      { title: "شبوك حديدية فاخرة", description: "شبوك بتصاميم عصرية وجودة عالية.", imageIndex: 0 },
+
+      { title: "تسوير المباني", description: "تسوير أنيق للفلل والمنازل.", imageIndex: 1 },
+
+      { title: "شبوك للمزارع", description: "تسوير للمزارع والأراضي الزراعية.", imageIndex: 2 },
+
+      { title: "شبوك للمصانع", description: "حلول أمنية للمواقع الصناعية.", imageIndex: 3 },
+      
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
   },
   {
     id: "fabricHouses",
     slug: "fabric-houses",
     route: "/fabric-houses",
-    folder: "Gallery1",
-    title: "هناجر قماش",
-    shortTitle: "هناجر قماش",
-    badge: "مقاول هناجر قماش",
-    heroSubtitle: "هناجر خفيفة",
-    introTitle: "هناجر قماش في مكة المكرمة والمدينة المنورة",
+    folder: "fabric-houses",
+    title: "بيوت الشعر",
+    shortTitle: "بيوت الشعر",
+    badge: "مقاول بيوت شعر",
+    heroSubtitle: "تصميم وتنفيذ بيوت الشعر",
+    introTitle: "بيوت الشعر في مكة المكرمة والمدينة المنورة",
     introDescription:
-      "تنفيذ هناجر قماش خفيفة الوزن في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال هناجر قماش",
-    galleryDescription: "نماذج من مشاريع هناجر قماش",
-    benefitsTitle: "مميزات هناجر قماش",
-    hasHeaderImage: false,
+      "تصميم وتنفيذ بيوت الشعر والخيام الملكية والعصرية بأحدث المواصفات في مكة المكرمة والمدينة المنورة.",
+    galleryTitle: "معرض أعمال بيوت الشعر",
+    galleryDescription: "نماذج من أعمال بيوت الشعر والخيام التراثية",
+    benefitsTitle: "مميزات بيوت الشعر",
+    hasHeaderImage: true,
     galleryImageCount: 4,
-    cardImage: "/WarehousesDetail1/1.webp",
+    cardImage: "/fabric-houses/1.webp",
     icon: Warehouse,
     features: defaultFeatures,
     benefits: [
       "خفيفة الوزن",
-      "سهولة التركيب",
-      "اقتصادية",
-      "مناسبة للمزارع والحظائر",
-      "مقاومة للعوامل الجوية",
+      "سهولة وسرعة التركيب",
+      "اقتصادية وعملية",
+      "مناسبة للاستراحات والمنازل والمزارع",
+      "مقاومة للعوامل الجوية والأمطار",
       "ضمان على الأعمال بحسب الاتفاق",
     ],
     serviceTypes: [
       { title: "بيوت شعر ملكية فاخرة", description: "مجالس ضيافة تراثية مجهزة داخلياً بالفرش والديكور والإنارة التراثية والعصرية المتكاملة." },
       { title: "خيام وجلسات أحواش", description: "مساحات استقبال وضيافة خارجية للمنازل والفلل والاستراحات تجمع بين الأصالة والراحة." },
-      { title: "هناجر قماش خفيفة", description: "تغطيات مرنة وسريعة التركيب لحماية المواشي والأعلاف والمعدات في المزارع والمواقع المفتوحة." },
+      { title: "خيام وبيوت شعر خفيفة", description: "تغطيات مرنة وسريعة التركيب لحماية المواشي والأعلاف والمعدات في المزارع والمواقع المفتوحة." },
       { title: "بيوت شعر عازلة للأمطار", description: "بطانات داخلية متعددة الطبقات مع عوازل حرارية ومائية تمنع تسرب مياه الأمطار وأشعة الشمس." },
     ],
     contentSections: [
@@ -940,73 +736,31 @@ export const allServices: ServiceDefinition[] = [
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
   },
   {
-    id: "buildingFencing",
-    slug: "building-fencing",
-    route: "/building-fencing",
-    folder: "Gallery1",
-    title: "شبوك المباني",
-    shortTitle: "شبوك مباني",
-    badge: "مقاول شبوك مباني",
-    heroSubtitle: "تسوير احترافي",
-    introTitle: "شبوك المباني في مكة المكرمة والمدينة المنورة",
-    introDescription:
-      "تنفيذ شبوك وتسوير للمباني في مكة المكرمة والمدينة المنورة.",
-    galleryTitle: "معرض أعمال شبوك المباني",
-    galleryDescription: "نماذج من مشاريع شبوك المباني",
-    benefitsTitle: "مميزات شبوك المباني",
-    hasHeaderImage: false,
-    galleryImageCount: 4,
-    cardImage: "/WarehousesDetail1/1.webp",
-    icon: Fence,
-    features: defaultFeatures,
-    benefits: [
-      "حماية أمنية",
-      "تصاميم متنوعة",
-      "مواد مقاومة للصدأ",
-      "مناسبة للمباني والفلل",
-      "تنفيذ احترافي",
-      "ضمان على الأعمال بحسب الاتفاق",
-    ],
-    serviceTypes: [
-      { title: "شبوك مواقع إنشائية", description: "تسوير أمني مؤقت أو دائم حول المشاريع قيد التنفيذ لحماية المعدات وتحديد حدود الموقع." },
-      { title: "شبوك منشآت ومستودعات", description: "أسوار أمنية مجلفنة حول المباني والمستودعات والشركات لحمايتها وفق المواصفات القياسية." },
-      { title: "شبوك حماية أسطح وأسوار", description: "تأمين أسطح وأسوار الفلل والمباني السكنية بشبوك متينة متناسقة مع المظهر الخارجي." },
-      { title: "أسلاك شائكة وحماية علوية", description: "تدعيم الأسوار بأسلاك شائكة وحلزونية لتعزيز الأمان ومنع التسلل إلى حدود الملكية." },
-    ],
-    contentSections: [
-      { title: "تأمين وحماية المنشآت", description: "حلول تسوير قوية تحدد حدود العقار والمشروع وتمنع التعديات في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
-      { title: "جلفنة عالية ومقاومة للتآكل", description: "أسلاك فولاذية مجلفنة تتحمل الرطوبة وعوامل التعرية الجوية دون أن تتعرض للتلف أو الصدأ.", imageIndex: 1 },
-      { title: "دقة التثبيت والقواعد", description: "تثبيت الأعمدة بمقاسات هندسية منتظمة مع شدادات سلكية قوية تمنع ارتخاء الشبك مع مرور الوقت.", imageIndex: 2 },
-      { title: "سرعة الإنجاز والتسليم", description: "إمكانية تنفيذ مساحات كبيرة في أوقات قياسية لضمان تسليم المشاريع وفق الجدول الزمني المحدد.", imageIndex: 3 },
-    ],
-    areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
-  {
     id: "roofingTiles",
     slug: "roofing-tiles",
     route: "/roofing-tiles",
-    folder: "Gallery1",
+    folder: "roofing-tiles",
     title: "القراميد",
-    shortTitle: "قراميد",
+    shortTitle: "القراميد",
     badge: "مقاول قراميد",
-    heroSubtitle: "أسقف قرميدية",
+    heroSubtitle: "تصميم وتنفيذ أسقف القرميد",
     introTitle: "القراميد في مكة المكرمة والمدينة المنورة",
     introDescription:
-      "تنفيذ أسقف قرميدية في مكة المكرمة والمدينة المنورة.",
+      "تصميم وتنفيذ وتركيب أسقف القرميد الفخاري والمعدني بأعلى معايير الجودة في مكة المكرمة والمدينة المنورة.",
     galleryTitle: "معرض أعمال القراميد",
-    galleryDescription: "نماذج من مشاريع القراميد",
-    benefitsTitle: "مميزات القراميد",
+    galleryDescription: "نماذج من أعمال تركيب أسقف القرميد الفخاري والمعدني",
+    benefitsTitle: "مميزات أسقف القرميد",
     hasHeaderImage: false,
     galleryImageCount: 4,
-    cardImage: "/Pergolas1/1.webp",
+    cardImage: "/roofing-tiles/1.webp",
     icon: Layers,
     features: defaultFeatures,
     benefits: [
-      "متانة عالية",
-      "مقاومة للعوامل الجوية",
-      "مظهر فاخر",
-      "تصاميم متنوعة",
-      "مناسبة للفلل والمنازل",
+      "متانة عالية ومقاومة للرياح",
+      "مقاومة للعوامل الجوية والأمطار",
+      "مظهر معمارى فاخر",
+      "تصاميم وألوان متعددة",
+      "عزل حراري ومائي متميز للفلل والمنازل",
       "ضمان على الأعمال بحسب الاتفاق",
     ],
     serviceTypes: [
@@ -1022,9 +776,1204 @@ export const allServices: ServiceDefinition[] = [
       { title: "ثبات ومتانة الهيكل الحامل", description: "شاسيه حديدي مدهون بعناية ومثبت بإحكام لمقاومة الرياح العاتية ومختلف العوامل الجوية.", imageIndex: 3 },
     ],
     areasText: "نخدم مكة المكرمة والمدينة المنورة",
-  },
+  }
 ];
 
+export const servicesList = primaryServices;
+
+// جميع الخدمات (بما في ذلك الإضافية) لإنشاء servicesById
+
+export const allServices: ServiceDefinition[] = [
+
+ ...primaryServices,
+
+  {
+
+    id: "carCanopies",
+
+    slug: "car-canopies",
+
+    route: "/car-canopies",
+
+    folder: "Gallery1",
+
+    title: "مظلات السيارات",
+
+    shortTitle: "مظلات سيارات",
+
+    badge: "مقاول مظلات سيارات",
+
+    heroSubtitle: "حماية لسيارتك",
+
+    introTitle: "مظلات السيارات في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ مظلات سيارات بتصاميم متنوعة في مكة المكرمة والمدينة المنورة. تصاميم هرمية ومقوسة توفر حماية فعالة من الشمس والأمطار.",
+
+    galleryTitle: "معرض أعمال مظلات السيارات",
+
+    galleryDescription: "نماذج من مشاريع مظلات السيارات",
+
+    benefitsTitle: "مميزات مظلات السيارات",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Gallery1/1.webp",
+
+    icon: Car,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "حماية من أشعة الشمس",
+
+      "مقاومة للعوامل الجوية",
+
+      "تصاميم عصرية متنوعة",
+
+      "هياكل حديدية متينة",
+
+      "سهولة التركيب",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "مظلات هرمية", description: "مظلات سيارات هرمية بتصاميم عصرية" },
+
+      { title: "مظلات مقوسة", description: "مظلات سيارات مقوسة أنيقة" },
+
+      { title: "مظلات للمواقف", description: "حلول لمواقف السيارات العامة والخاصة" },
+
+      { title: "تصميم مخصص", description: "حسب مساحة الموقف" },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظلات للمنازل", description: "مظلات سيارات للمنازل والفلل.", imageIndex: 0 },
+
+      { title: "مظلات للمواقف", description: "حلول لمواقف السيارات العامة.", imageIndex: 1 },
+
+      { title: "مظلات للشركات", description: "مظلات لمواقف الشركات والمؤسسات.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تركيب دقيق وفق المواصفات.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "gardenCanopies",
+
+    slug: "garden-canopies",
+
+    route: "/garden-canopies",
+
+    folder: "Gallery1",
+
+    title: "مظلات الحدائق",
+
+    shortTitle: "مظلات حدائق",
+
+    badge: "مقاول مظلات حدائق",
+
+    heroSubtitle: "ظل مريح للمساحات الخضراء",
+
+    introTitle: "مظلات الحدائق في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تركيب مظلات للحدائق والمساحات الخارجية في مكة المكرمة والمدينة المنورة بأشكال متنوعة توفر الظل وتضيف جمالًا للمكان.",
+
+    galleryTitle: "معرض أعمال مظلات الحدائق",
+
+    galleryDescription: "نماذج من مشاريع مظلات الحدائق",
+
+    benefitsTitle: "مميزات مظلات الحدائق",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Gallery1/1.webp",
+
+    icon: TreePine,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "ظل مريح للحدائق",
+
+      "تصاميم متنوعة",
+
+      "مواد مقاومة للعوامل الجوية",
+
+      "تعزيز المظهر الجمالي",
+
+      "تركيب احترافي",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "مظلات حدائق قماش", description: "أقمشة عالية الجودة للحدائق" },
+
+      { title: "مظلات حدائق حديد", description: "هياكل حديدية متينة" },
+
+      { title: "مظلات للجلسات", description: "حلول ظل للجلسات الخارجية" },
+
+      { title: "تصميم مخصص", description: "حسب مساحة وشكل الحديقة" },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظلات للحدائق المنزلية", description: "حلول ظل للحدائق المنزلية.", imageIndex: 0 },
+
+      { title: "مظلات للاستراحات", description: "مظلات للاستراحات والمساحات الترفيهية.", imageIndex: 1 },
+
+      { title: "مظلات للمساحات العامة", description: "تغطية للمساحات الخضراء.", imageIndex: 2 },
+
+      { title: "تنفيذ حسب الموقع", description: "قياس وتصميم حسب طبيعة المكان.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "schoolCanopies",
+
+    slug: "school-canopies",
+
+    route: "/school-canopies",
+
+    folder: "Gallery1",
+
+    title: "مظلات المدارس",
+
+    shortTitle: "مظلات مدارس",
+
+    badge: "مقاول مظلات مدارس",
+
+    heroSubtitle: "حماية للمنشآت التعليمية",
+
+    introTitle: "مظلات المدارس في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ مظلات للمدارس والساحات والممرات ومواقف السيارات في مكة المكرمة والمدينة المنورة بحلول عملية تناسب المنشآت التعليمية.",
+
+    galleryTitle: "معرض أعمال مظلات المدارس",
+
+    galleryDescription: "نماذج من مشاريع مظلات المدارس",
+
+    benefitsTitle: "مميزات مظلات المدارس",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Gallery1/1.webp",
+
+    icon: Sun,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "مناسبة للمنشآت التعليمية",
+
+      "تغطية الساحات والممرات",
+
+      "حلول مناسبة لمواقف السيارات",
+
+      "تصاميم متنوعة حسب مساحة الموقع",
+
+      "حماية من أشعة الشمس والعوامل الجوية",
+
+      "تنفيذ مناسب للمشاريع والمنشآت",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "مظلات ساحات المدارس", description: "تغطية ساحات المدارس" },
+
+      { title: "مظلات ممرات الطلاب", description: "مظلات للممرات" },
+
+      { title: "مظلات مواقف السيارات", description: "مظلات لمواقف المدارس" },
+
+      { title: "تصميم وتنفيذ", description: "خدمة متكاملة" },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظلات ساحات المدارس", description: "تغطية ساحات المدارس.", imageIndex: 0 },
+
+      { title: "مظلات ممرات الطلاب", description: "مظلات للممرات.", imageIndex: 1 },
+
+      { title: "مظلات مواقف السيارات", description: "مظلات لمواقف المدارس.", imageIndex: 2 },
+
+      { title: "تصميم وتنفيذ", description: "خدمة متكاملة.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "frenchArchCanopies",
+
+    slug: "french-arch-canopies",
+
+    route: "/french-arch-canopies",
+
+    folder: "french-arch-canopies",
+
+    title: "مظلات القوس الفرنسي",
+
+    shortTitle: "مظلات قوس فرنسي",
+
+    badge: "مقاول مظلات قوس فرنسي",
+
+    heroSubtitle: "تصميم عصري أنيق",
+
+    introTitle: "مظلات القوس الفرنسي في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ مظلات بتصميم القوس الفرنسي العصري في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار منافسة.",
+
+    galleryTitle: "معرض أعمال مظلات القوس الفرنسي",
+
+    galleryDescription: "نماذج من مشاريع مظلات القوس الفرنسي",
+
+    benefitsTitle: "مميزات مظلات القوس الفرنسي",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Gallery1/1.webp",
+
+    icon: Sun,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "تصميم عصري أنيق",
+
+      "مظهر فاخر",
+
+      "هياكل متينة",
+
+      "تنوع في التصاميم",
+
+      "مناسبة للفلل والمنشآت",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "مظلات قوس فرنسي", description: "تصميم عصري" },
+
+      { title: "مظلات للفلل", description: "مناسبة للفلل" },
+
+      { title: "مظلات للمشاريع", description: "مناسبة للمشاريع" },
+
+      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظلات للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
+
+      { title: "مظلات للمشاريع", description: "مناسبة للمشاريع.", imageIndex: 1 },
+
+      { title: "تصميم عصري", description: "تصميم عصري.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "pyramidalCarCanopies",
+
+    slug: "pyramidal-car-canopies",
+
+    route: "/pyramidal-car-canopies",
+
+    folder: "Gallery1",
+
+    title: "مظلات السيارات الهرمية",
+
+    shortTitle: "مظلات هرمية",
+
+    badge: "مقاول مظلات هرمية",
+
+    heroSubtitle: "تصميم هرمي عصري",
+
+    introTitle: "مظلات السيارات الهرمية في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ مظلات سيارات بتصميم هرمي عصري في مكة المكرمة والمدينة المنورة بجودة عالية وأسعار منافسة.",
+
+    galleryTitle: "معرض أعمال مظلات السيارات الهرمية",
+
+    galleryDescription: "نماذج من مشاريع مظلات السيارات الهرمية",
+
+    benefitsTitle: "مميزات مظلات السيارات الهرمية",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Gallery1/1.webp",
+
+    icon: Car,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "تصميم هرمي عصري",
+
+      "مظهر فاخر",
+
+      "هياكل متينة",
+
+      "تنوع في التصاميم",
+
+      "مناسبة للمواقف",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "مظلات هرمية", description: "تصميم هرمي" },
+
+      { title: "مظلات للمنازل", description: "مناسبة للمنازل" },
+
+      { title: "مظلات للمواقف", description: "مناسبة للمواقف" },
+
+      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظلات للمنازل", description: "مناسبة للمنازل.", imageIndex: 0 },
+
+      { title: "مظلات للمواقف", description: "مناسبة للمواقف.", imageIndex: 1 },
+
+      { title: "تصميم هرمي", description: "تصميم هرمي.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "laserShutters",
+
+    slug: "laser-shutters",
+
+    route: "/laser-shutters",
+
+    folder: "Gallery1",
+
+    title: "سواتر الليزر",
+
+    shortTitle: "سواتر ليزر",
+
+    badge: "مقاول سواتر ليزر",
+
+    heroSubtitle: "تصاميم ليزر عصرية",
+
+    introTitle: "سواتر الليزر في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تركيب سواتر ليزر بتصاميم عصرية توفر الحماية والخصوصية في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال سواتر الليزر",
+
+    galleryDescription: "نماذج من مشاريع سواتر الليزر",
+
+    benefitsTitle: "مميزات سواتر الليزر",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: Shield,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "تصاميم ليزر عصرية",
+
+      "خصوصية كاملة",
+
+      "مظهر فاخر",
+
+      "خامات مقاومة للصدأ",
+
+      "تنفيذ حسب المساحة",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "سواتر ليزر", description: "تصاميم ليزر" },
+
+      { title: "سواتر للفلل", description: "مناسبة للفلل" },
+
+      { title: "سواتر للمنازل", description: "مناسبة للمنازل" },
+
+      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+    ],
+
+    contentSections: [
+
+      { title: "سواتر للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
+
+      { title: "سواتر للمنازل", description: "مناسبة للمنازل.", imageIndex: 1 },
+
+      { title: "تصاميم ليزر", description: "تصاميم ليزر.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "fencingShutters",
+
+    slug: "fencing-shutters",
+
+    route: "/fencing-shutters",
+
+    folder: "Gallery1",
+
+    title: "سواتر الشبوك",
+
+    shortTitle: "سواتر شبوك",
+
+    badge: "مقاول سواتر شبوك",
+
+    heroSubtitle: "حماية وخصوصية",
+
+    introTitle: "سواتر الشبوك في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تركيب سواتر شبوك بتصاميم متنوعة توفر الحماية والخصوصية في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال سواتر الشبوك",
+
+    galleryDescription: "نماذج من مشاريع سواتر الشبوك",
+
+    benefitsTitle: "مميزات سواتر الشبوك",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: Shield,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "حماية وخصوصية",
+
+      "تصاميم متنوعة",
+
+      "خامات مقاومة للصدأ",
+
+      "تنفيذ حسب المساحة",
+
+      "مناسبة للفلل والمنازل",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "سواتر شبوك", description: "سواتر شبوك" },
+
+      { title: "سواتر للفلل", description: "مناسبة للفلل" },
+
+      { title: "سواتر للمنازل", description: "مناسبة للمنازل" },
+
+      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+    ],
+
+    contentSections: [
+
+      { title: "سواتر للفلل", description: "مناسبة للفلل.", imageIndex: 0 },
+
+      { title: "سواتر للمنازل", description: "مناسبة للمنازل.", imageIndex: 1 },
+
+      { title: "سواتر شبوك", description: "سواتر شبوك.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "woodCladding",
+
+    slug: "wood-cladding",
+
+    route: "/wood-cladding",
+
+    folder: "Gallery1",
+
+    title: "البرجولات والتلبيسات الخشبية",
+
+    shortTitle: "تلبيسات خشبية",
+
+    badge: "مقاول تلبيسات خشبية",
+
+    heroSubtitle: "جمال خشبي طبيعي",
+
+    introTitle: "البرجولات والتلبيسات الخشبية في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تصميم وتركيب برجولات وتلبيسات خشبية بجودة عالية في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال البرجولات والتلبيسات الخشبية",
+
+    galleryDescription: "نماذج من مشاريع البرجولات والتلبيسات الخشبية",
+
+    benefitsTitle: "مميزات البرجولات والتلبيسات الخشبية",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: TreePine,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "مظهر خشبي طبيعي",
+
+      "خشب معالج ومقاوم",
+
+      "تصاميم متنوعة",
+
+      "مناسبة للمساحات الخارجية والداخلية",
+
+      "عزل حراري وصوتي",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "برجولات خشبية", description: "برجولات خشبية" },
+
+      { title: "تلبيس حوائط خشبية", description: "تلبيس حوائط" },
+
+      { title: "أسقف خشبية", description: "أسقف خشبية" },
+
+      { title: "تصميم مخصص", description: "حسب الطلب" },
+
+    ],
+
+    contentSections: [
+
+      { title: "برجولات خشبية", description: "برجولات خشبية.", imageIndex: 0 },
+
+      { title: "تلبيس حوائط خشبية", description: "تلبيس حوائط.", imageIndex: 1 },
+
+      { title: "أسقف خشبية", description: "أسقف خشبية.", imageIndex: 2 },
+
+      { title: "تنفيذ احترافي", description: "تنفيذ احترافي.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "cladding",
+
+    slug: "cladding",
+
+    route: "/cladding",
+
+    folder: "Gallery1",
+
+    title: "تكسيات بديل الخشب",
+
+    shortTitle: "تكسيات",
+
+    badge: "مقاول تكسيات",
+
+    heroSubtitle: "بديل خشب عصري",
+
+    introTitle: "تكسيات بديل الخشب في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تركيب تكسيات بديل الخشب (WPC) بجودة عالية في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال تكسيات بديل الخشب",
+
+    galleryDescription: "نماذج من مشاريع تكسيات بديل الخشب",
+
+    benefitsTitle: "مميزات تكسيات بديل الخشب",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: Layers,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "مظهر خشبي طبيعي",
+
+      "مقاومة للعوامل الجوية",
+
+      "لا تحتاج صيانة",
+
+      "اقتصادية على المدى الطويل",
+
+      "عزل حراري وصوتي",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "تكسيات WPC خارجية", description: "ألواح خشب بلاستيكي معالج لمقاومة أشعة الشمس المباشرة والرطوبة العالية." },
+
+      { title: "بديل خشب داخلي وديكوري", description: "تكسيات جدارية عصرية تضفي دفئاً وفخامة لمداخل الفلل والصالات والمجالس." },
+
+      { title: "تكسيات أسوار وجدران", description: "تغطية الأسوار والواجهات الخارجية بحلول جمالية مستدامة وعازلة للحرارة." },
+
+      { title: "تصاميم وألوان مخصصة", description: "تشكيلة ألوان خشبية متناسقة مع الطراز المعماري الحديث حسب اختيار العميل." },
+
+    ],
+
+    contentSections: [
+
+      { title: "تكسيات WPC المعالجة", description: "ألواح متطورة تجمع بين جمال الخشب الطبيعي وقوة البوليمر المعالج ضد التآكل والحرارة بمكة والمدينة.", imageIndex: 0 },
+
+      { title: "ديكورات واجهات وأسوار", description: "لمسات فنية راقية تعكس الفخامة وتتحمل العوامل الجوية القاسية دون أن تتشقق أو يتغير لونها.", imageIndex: 1 },
+
+      { title: "عزل ومقاومة متفوقة", description: "مقاومة جيدة للمياه والرطوبة مع توفير حماية إضافية للجدران من حرارة الصيف.", imageIndex: 2 },
+
+      { title: "تثبيت هندسي احترافي", description: "تأسيس شاسيهات حديد معالجة ضد الصدأ لضمان استقامة ودقة الألواح وثباتها على المدى الطويل.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "claddingFacades",
+
+    slug: "cladding-facades",
+
+    route: "/cladding-facades",
+
+    folder: "Gallery1",
+
+    title: "تكسيات الواجهات",
+
+    shortTitle: "تكسيات واجهات",
+
+    badge: "مقاول تكسيات واجهات",
+
+    heroSubtitle: "واجهات عصرية",
+
+    introTitle: "تكسيات الواجهات في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تركيب تكسيات واجهات بديل الخشب في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال تكسيات الواجهات",
+
+    galleryDescription: "نماذج من مشاريع تكسيات الواجهات",
+
+    benefitsTitle: "مميزات تكسيات الواجهات",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: Layers,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "مظهر عصري فاخر",
+
+      "مقاومة للعوامل الجوية",
+
+      "عزل حراري ممتاز",
+
+      "تصاميم متنوعة",
+
+      "مناسبة للفلل والمباني",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "كلادينج واجهات محلات", description: "تصاميم عصرية جذابة تبرز هوية النشاط التجاري وتتحمل العوامل الجوية المتغيرة." },
+
+      { title: "واجهات مباني وعمائر", description: "تكسيات واجهات كاملة بألواح ألومنيوم خفيفة الوزن وعالية المتانة للمنشآت والشركات." },
+
+      { title: "أسقف ومظلات كلادينج", description: "تغطية الأسقف والمداخل بشرائح كلادينج فاخرة مقاومة للحرارة وتسربات المياه." },
+
+      { title: "كلادينج مقاوم للحريق", description: "ألواح بمواصفات أمان عالية معتمدة للمنشآت التجارية والسكنية في مكة والمدينة." },
+
+    ],
+
+    contentSections: [
+
+      { title: "تصاميم واجهات عصرية", description: "تجديد مظهر المباني والمنشآت وتحويلها إلى طراز معماري حديث ومميز في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
+
+      { title: "متانة ومقاومة عالية", description: "ألواح ألومنيوم متعددة الطبقات معالجة ضد الرطوبة والشمس والتآكل وسهلة التنظيف والصيانة.", imageIndex: 1 },
+
+      { title: "دقة الهياكل الحاملة", description: "تأسيس قطاعات حديد مجلفنة مطابقة لأعلى المواصفات لضمان أقصى درجات الثبات والأمان الإنشائي.", imageIndex: 2 },
+
+      { title: "تناغم الألوان والتشطيب", description: "خيارات واسعة من درجات الألوان اللامعة والمطفية مع تشطيبات معمارية متناسقة تلبي رغبة العميل.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "doors",
+
+    slug: "doors",
+
+    route: "/doors",
+
+    folder: "Gallery1",
+
+    title: "تلبيس الأبواب",
+
+    shortTitle: "أبواب",
+
+    badge: "مقاول أبواب",
+
+    heroSubtitle: "أبواب أنيقة",
+
+    introTitle: "تلبيس الأبواب في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تلبيس أبواب بديل الخشب في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال تلبيس الأبواب",
+
+    galleryDescription: "نماذج من مشاريع تلبيس الأبواب",
+
+    benefitsTitle: "مميزات تلبيس الأبواب",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/Pergolas1/1.webp",
+
+    icon: Shield,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "مظهر خشبي طبيعي",
+
+      "مقاومة للعوامل الجوية",
+
+      "تصاميم متنوعة",
+
+      "مناسبة للأبواب الداخلية والخارجية",
+
+      "سهولة التركيب",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "تلبيس أبواب حديد", description: "تغطية الأبواب الحديدية بشرائح بديل الخشب لمظهر فاخر يجمع قوة الفولاذ وأناقة الخشب." },
+
+      { title: "أبواب مداخل فلل", description: "تصاميم راقية لمداخل الفلل والقصور تتناسق مع الواجهات الخارجية الحديثة والديكور العام." },
+
+      { title: "تجديد أبواب قديمة", description: "إعادة إحياء الأبواب السابقة دون الحاجة لتغيير الهيكل الأساسي بتكلفة اقتصادية ومظهر مودرن." },
+
+      { title: "إكسسوارات ومقابض مودرن", description: "تركيب مسكات ومقابض عصرية متناسقة مع شرائح بديل الخشب لإبراز فخامة المدخل." },
+
+    ],
+
+    contentSections: [
+
+      { title: "مظهر خشبي فاخر", description: "إضفاء طابع معماري دافئ وراقٍ على مداخل المنازل والفلل في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
+
+      { title: "مقاومة الشمس والحرارة", description: "استخدام خامات WPC لا تتأثر بحرارة الشمس المباشرة ولا تبهت ألوانها ولا تحتاج لصيانة مستمرة.", imageIndex: 1 },
+
+      { title: "حماية الهيكل الأساسي", description: "تغليف محكم يحمي الحديد من الرطوبة والصدأ ويزيد من العمر الافتراضي لباب المدخل.", imageIndex: 2 },
+
+      { title: "تشطيب متقن وتفاصيل هندسية", description: "قص دقيق وتركيب احترافي للفواصل والزوايا لضمان مظهر متكامل يعكس أعلى مستويات الإتقان.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "warehousesDetail",
+
+    slug: "warehouses-detail",
+
+    route: "/warehouses-detail",
+
+    folder: "Gallery1",
+
+    title: "هناجر ومستودعات تفصيلية",
+
+    shortTitle: "هناجر تفصيلية",
+
+    badge: "مقاول هناجر تفصيلية",
+
+    heroSubtitle: "هناجر متكاملة",
+
+    introTitle: "هناجر ومستودعات تفصيلية في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ هناجر ومستودعات تفصيلية بمساحات مختلفة في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال الهناجر التفصيلية",
+
+    galleryDescription: "نماذج من مشاريع الهناجر التفصيلية",
+
+    benefitsTitle: "مميزات الهناجر التفصيلية",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/WarehousesDetail1/1.webp",
+
+    icon: Warehouse,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "هناجر حديدية",
+
+      "هناجر ساندوتش بانل",
+
+      "هناجر شينكو",
+
+      "تصاميم متنوعة",
+
+      "مناسبة للمشاريع الصناعية والتجارية",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "هناجر صناعية وتجارية", description: "مبانٍ فولاذية متكاملة للمصانع والورش والشركات بمساحات واسعة مفتوحة دون أعمدة وسطية." },
+
+      { title: "مستودعات تخزين وبضائع", description: "بيئات تخزين آمنة ومحمية من الحرارة والأمطار والرياح لحفظ السلع والمواد بكفاءة." },
+
+      { title: "هناجر زراعية وحظائر", description: "حلول مظللة ومحمية للمزارع وحفظ الأعلاف والمعدات وتربية المواشي بمواصفات معتمدة." },
+
+      { title: "مواقف معدات وشاحنات", description: "تغطيات وهياكل واسعة توفر الظل والحماية للآليات والمعدات الثقيلة والشاحنات." },
+
+    ],
+
+    contentSections: [
+
+      { title: "تأسيس القواعد والهياكل", description: "دراسة هندسية لأحمال الرياح والأوزان وتنفيذ قواعد خرسانية وجمالونات حديد عالية التحمل.", imageIndex: 0 },
+
+      { title: "التغطيات والعوازل المتقدمة", description: "خيارات متعددة من الصاج المعرج أو الساندوتش بانل لتوفير أقصى درجات الحماية والعزل الحراري.", imageIndex: 1 },
+
+      { title: "التهوية وتصريف الأمطار", description: "تركيب فتحات تهوية ومداخن سحب الهواء ومزاريب تصريف مياه الأمطار بكفاءة في مكة والمدينة.", imageIndex: 2 },
+
+      { title: "إشراف وتنفيذ دقيق", description: "التزام كامل بمخططات التنفيذ وجودة اللحام وتثبيت البراغي والشدادات وفق أعلى معايير السلامة.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  {
+
+    id: "sandwichWarehouses",
+
+    slug: "sandwich-warehouses",
+
+    route: "/sandwich-warehouses",
+
+    folder: "sandwich-warehouses",
+
+    title: "هناجر ساندوتش بانل",
+
+    shortTitle: "هناجر ساندوتش",
+
+    badge: "مقاول هناجر ساندوتش",
+
+    heroSubtitle: "عزل حراري ممتاز",
+
+    introTitle: "هناجر ساندوتش بانل في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ هناجر ساندوتش بانل للعزل الحراري في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال هناجر ساندوتش بانل",
+
+    galleryDescription: "نماذج من مشاريع هناجر ساندوتش بانل",
+
+    benefitsTitle: "مميزات هناجر ساندوتش بانل",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/sandwich-warehouses/1.webp",
+
+    icon: Warehouse,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "عزل حراري ممتاز",
+
+      "عزل صوتي جيد",
+
+      "بناء سريع",
+
+      "خفيف الوزن",
+
+      "مناسبة للمستودعات والمصانع",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "هناجر ساندوتش معزولة", description: "مستودعات تحافظ على برودة الهواء وتقلل من استهلاك أجهزة التكييف والكهرباء." },
+
+      { title: "مستودعات تبريد وتجميد", description: "غرف ومخازن مخصصة لحفظ المواد الغذائية والأدوية بعزل حراري محكم عالي الكثافة." },
+
+      { title: "ورش ومصانع مكيفة", description: "مبانٍ مجهزة لبيئات العمل الصناعية توفر عزلاً صوتياً وحرارياً متقدماً للعاملين." },
+
+      { title: "ملاحق وغرف ساندوتش جاهزة", description: "إنشاء غرف مسبقة الصنع وملاحق سريعة على الأسطح وفي الأحواش بمتانة عالية." },
+
+    ],
+
+    contentSections: [
+
+      { title: "كفاءة العزل الحراري الفائق", description: "ألواح ساندوتش بانل محقونة بالبولي يوريثان تحمي المنشأة من حرارة صيف مكة والمدينة الشديدة.", imageIndex: 0 },
+
+      { title: "سرعة البناء والتركيب", description: "نظام تركيب تعشيقي متين يختصر زمن الإنجاز ويوفر تكاليف التشغيل مقارنة بالبناء التقليدي.", imageIndex: 1 },
+
+      { title: "مقاومة الرطوبة والاشتعال", description: "طبقات صاج مجلفن مدهون بدهانات بوليستر مقاومة للصدأ والتآكل وتدوم طويلاً ضد العوامل الجوية.", imageIndex: 2 },
+
+      { title: "إحكام الفواصل ومنع التسرب", description: "تقفيل كامل للفواصل بمواد مانعة للتسرب تقلل من دخول الغبار ومياه الأمطار والحرارة.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  
+
+  {
+
+    id: "buildingFencing",
+
+    slug: "building-fencing",
+
+    route: "/building-fencing",
+
+    folder: "Gallery1",
+
+    title: "شبوك المباني",
+
+    shortTitle: "شبوك مباني",
+
+    badge: "مقاول شبوك مباني",
+
+    heroSubtitle: "تسوير احترافي",
+
+    introTitle: "شبوك المباني في مكة المكرمة والمدينة المنورة",
+
+    introDescription:
+
+      "تنفيذ شبوك وتسوير للمباني في مكة المكرمة والمدينة المنورة.",
+
+    galleryTitle: "معرض أعمال شبوك المباني",
+
+    galleryDescription: "نماذج من مشاريع شبوك المباني",
+
+    benefitsTitle: "مميزات شبوك المباني",
+
+    hasHeaderImage: false,
+
+    galleryImageCount: 4,
+
+    cardImage: "/WarehousesDetail1/1.webp",
+
+    icon: Fence,
+
+    features: defaultFeatures,
+
+    benefits: [
+
+      "حماية أمنية",
+
+      "تصاميم متنوعة",
+
+      "مواد مقاومة للصدأ",
+
+      "مناسبة للمباني والفلل",
+
+      "تنفيذ احترافي",
+
+      "ضمان على الأعمال بحسب الاتفاق",
+
+    ],
+
+    serviceTypes: [
+
+      { title: "شبوك مواقع إنشائية", description: "تسوير أمني مؤقت أو دائم حول المشاريع قيد التنفيذ لحماية المعدات وتحديد حدود الموقع." },
+
+      { title: "شبوك منشآت ومستودعات", description: "أسوار أمنية مجلفنة حول المباني والمستودعات والشركات لحمايتها وفق المواصفات القياسية." },
+
+      { title: "شبوك حماية أسطح وأسوار", description: "تأمين أسطح وأسوار الفلل والمباني السكنية بشبوك متينة متناسقة مع المظهر الخارجي." },
+
+      { title: "أسلاك شائكة وحماية علوية", description: "تدعيم الأسوار بأسلاك شائكة وحلزونية لتعزيز الأمان ومنع التسلل إلى حدود الملكية." },
+
+    ],
+
+    contentSections: [
+
+      { title: "تأمين وحماية المنشآت", description: "حلول تسوير قوية تحدد حدود العقار والمشروع وتمنع التعديات في مكة المكرمة والمدينة المنورة.", imageIndex: 0 },
+
+      { title: "جلفنة عالية ومقاومة للتآكل", description: "أسلاك فولاذية مجلفنة تتحمل الرطوبة وعوامل التعرية الجوية دون أن تتعرض للتلف أو الصدأ.", imageIndex: 1 },
+
+      { title: "دقة التثبيت والقواعد", description: "تثبيت الأعمدة بمقاسات هندسية منتظمة مع شدادات سلكية قوية تمنع ارتخاء الشبك مع مرور الوقت.", imageIndex: 2 },
+
+      { title: "سرعة الإنجاز والتسليم", description: "إمكانية تنفيذ مساحات كبيرة في أوقات قياسية لضمان تسليم المشاريع وفق الجدول الزمني المحدد.", imageIndex: 3 },
+
+    ],
+
+    areasText: "نخدم مكة المكرمة والمدينة المنورة",
+
+  },
+
+  
+
+];
+
+
+
 export const servicesById = Object.fromEntries(
+
   allServices.map((service) => [service.id, service])
+
 ) as Record<ServiceSeoKey, ServiceDefinition>;
+

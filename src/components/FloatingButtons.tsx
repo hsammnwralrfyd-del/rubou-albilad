@@ -1,7 +1,8 @@
-import { contactLinks } from "@/config/client";
+import { useSiteData } from "@/contexts/SiteDataContext";
 import { PhoneCall, MessageCircle } from "lucide-react";
 
 const FloatingButtons = () => {
+  const { contactLinks } = useSiteData();
   return (
     <div
       className="fixed bottom-4 left-4 z-[60] flex flex-col gap-3 sm:bottom-6 sm:left-6"
