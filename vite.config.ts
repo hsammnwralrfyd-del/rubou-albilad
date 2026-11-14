@@ -35,7 +35,7 @@ const routes = [
 ];
 
 export default defineConfig(({ mode }) => ({
-  base: "/rubou-albilad/",
+  base: "/",
 
   server: {
     host: "::",
