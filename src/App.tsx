@@ -1,4 +1,3 @@
-﻿
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -129,7 +128,8 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter basename="/rubou-albilad/">
+      {/* تم إزالة الـ basename ليتوافق مع Vercel تماماً */}
+      <BrowserRouter>
         <AuthProvider>
           <SiteDataProvider>
             <Suspense fallback={<LoadingFallback />}>
@@ -267,8 +267,6 @@ const App = () => (
                 />
 
                 {/* صفحات الإدارة */}
-
-                {/* تحويل /admin إلى صفحة تسجيل الدخول */}
 
                 <Route
                   path="/admin"
