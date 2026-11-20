@@ -1651,6 +1651,7 @@ export interface SiteSettings {
   updated_at?: string;
 }
 
+
 export const settingsManager = {
   getSettings: async (): Promise<SiteSettings | null> => {
     if (!supabase) {
@@ -1662,7 +1663,7 @@ export const settingsManager = {
       const { data, error } = await supabase
         .from('site_settings')
         .select('*')
-        .limit(1)
+        .eq('id', 2)
         .maybeSingle();
 
       if (error) {
@@ -1713,67 +1714,26 @@ export const settingsManager = {
         }
       });
 
-      const { data: existing, error: fetchError } = await supabase
-        .from('site_settings')
-        .select('id')
-        .limit(1)
-        .maybeSingle();
-
-      if (fetchError) {
-        console.error('Error checking existing settings:', fetchError);
-
-        return {
-          success: false,
-          error: `تعذر قراءة إعدادات الموقع: ${fetchError.message}`,
-        };
-      }
-
-      if (existing?.id) {
-        const { data, error } = await supabase
-          .from('site_settings')
-          .update(updateData)
-          .eq('id', existing.id)
-          .select('id')
-          .maybeSingle();
-
-        if (error) {
-          console.error('Error updating site settings:', error);
-
-          return {
-            success: false,
-            error: `فشل تحديث الإعدادات: ${error.message}`,
-          };
-        }
-
-        if (!data) {
-          return {
-            success: false,
-            error: 'لم يتم تحديث أي سجل. تحقق من صلاحيات قاعدة البيانات RLS.',
-          };
-        }
-
-        return { success: true };
-      }
-
       const { data, error } = await supabase
         .from('site_settings')
-        .insert(updateData)
+        .update(updateData)
+        .eq('id', 2)
         .select('id')
-        .single();
+        .maybeSingle();
 
       if (error) {
-        console.error('Error inserting site settings:', error);
+        console.error('Error updating site settings:', error);
 
         return {
           success: false,
-          error: `فشل إنشاء الإعدادات: ${error.message}`,
+          error: `فشل تحديث الإعدادات: ${error.message}`,
         };
       }
 
-      if (!data?.id) {
+      if (!data) {
         return {
           success: false,
-          error: 'لم يتم تأكيد إنشاء سجل الإعدادات.',
+          error: 'لم يتم تحديث السجل رقم 2. تحقق من وجوده وصلاحيات RLS.',
         };
       }
 
@@ -1791,6 +1751,7 @@ export const settingsManager = {
     }
   },
 };
+
 
 // ============================================================================
 // Helper: Match Database Services With Canonical Website Services
