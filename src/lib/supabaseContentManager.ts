@@ -1652,6 +1652,7 @@ export interface SiteSettings {
 }
 
 
+
 export const settingsManager = {
   getSettings: async (): Promise<SiteSettings | null> => {
     if (!supabase) {
