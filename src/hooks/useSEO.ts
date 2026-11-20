@@ -7,10 +7,12 @@ interface SEOProps {
   image?: string;
   url?: string;
   type?: string;
+  siteName?: string;
   structuredData?: object;
 }
 
-const SITE_URL = "https://canopies-makkah.com";
+export const SITE_URL = "https://rubou-albilad.vercel.app";
+
 const DEFAULT_IMAGE = `${SITE_URL}/hero-bg.webp`;
 
 export const useSEO = ({
@@ -20,6 +22,7 @@ export const useSEO = ({
   image = DEFAULT_IMAGE,
   url = SITE_URL,
   type = "website",
+  siteName = "مظلات وسواتر المدينة المنورة",
   structuredData,
 }: SEOProps) => {
   useEffect(() => {
@@ -60,7 +63,7 @@ export const useSEO = ({
     updateMetaTag("og:url", url, true);
     updateMetaTag("og:type", type, true);
     updateMetaTag("og:locale", "ar_SA", true);
-    updateMetaTag("og:site_name", "مظلات وسواتر مكة والمدينة مظلات سيارات", true);
+    updateMetaTag("og:site_name", siteName, true);
 
     // Twitter
     updateMetaTag("twitter:card", "summary_large_image");
@@ -85,14 +88,16 @@ export const useSEO = ({
     canonical.setAttribute("href", url);
 
     // Structured Data
-    const existingScripts = document.querySelectorAll(
-      'script[type="application/ld+json"][data-seo="true"]'
-    );
+    document
+      .querySelectorAll(
+        'script[type="application/ld+json"][data-seo="true"]'
+      )
+      .forEach((script) => script.remove());
 
-    existingScripts.forEach((script) => script.remove());
+    let scriptElement: HTMLScriptElement | null = null;
 
     if (structuredData) {
-      const scriptElement = document.createElement("script");
+      scriptElement = document.createElement("script");
 
       scriptElement.type = "application/ld+json";
       scriptElement.setAttribute("data-seo", "true");
@@ -102,7 +107,7 @@ export const useSEO = ({
     }
 
     return () => {
-      existingScripts.forEach((script) => script.remove());
+      scriptElement?.remove();
     };
   }, [
     title,
@@ -111,6 +116,7 @@ export const useSEO = ({
     image,
     url,
     type,
+    siteName,
     structuredData,
   ]);
 };
